@@ -1,4 +1,4 @@
-public class Proceso
+public class Proceso implements Comparable<Proceso>
 {
     private int tiempoEnCPU;
     private int tiempoDeLlegada;
@@ -29,22 +29,13 @@ public class Proceso
 
     public int compareTo(Proceso proceso)
     {
-        if (this.getTiempoDeLlegada()< proceso.getTiempoDeLlegada())
-        {
-            return -1;
-        }
-        else
-        {
-            if (this.getTiempoDeLlegada()==proceso.getTiempoDeLlegada())
-            {
-                return 0;
-            }
-            else
-            {
-                return 1;
-            }
-        }
+       return this.getTiempoDeLlegada()-proceso.getTiempoDeLlegada();
 
+    }
+
+    public void print()
+    {
+        System.out.println("tiempo en cpu "+this.getTiempoEnCPU()+" tiempo de llgada "+this.tiempoDeLlegada+" prioridad "+this.prioridad);
     }
 
 }
