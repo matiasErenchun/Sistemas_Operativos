@@ -6,20 +6,19 @@ public class Main
 {
     private static Lector lector;
     private static ArrayList<Proceso> misProcesos;
-    private static Fifo fifo;
+    private static Sjf sjf;
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
         lector= new Lector("procesos.dat");
         misProcesos=lector.leerProcesos();
-        fifo=new Fifo(misProcesos);
-        fifo.ordenarProcesos();
+        sjf=new Sjf(misProcesos);
+        sjf.calcularTiempos();
         /*
         for (Proceso p:misProcesos)
         {
             p.print();
         }
          */
-        fifo.calcularTiempoDeCompletacion();
 
     }
 }

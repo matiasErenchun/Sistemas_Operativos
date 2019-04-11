@@ -29,7 +29,7 @@ public class Proceso implements Comparable<Proceso>
 
     public int compareTo(Proceso proceso)
     {
-        return this.getTiempoDeLlegada()-proceso.getTiempoDeLlegada();
+            return this.getTiempoDeLlegada()-proceso.getTiempoDeLlegada();
     }
 
     public void print()
