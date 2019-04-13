@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
+public class Silla
+{
 
-public class Silla {
 }
