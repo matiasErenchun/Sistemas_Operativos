@@ -8,11 +8,11 @@ public class GeneradorCliente extends Thread
         clientesGenerados=0;
     }
 
-    public void generarClientes(int nClientes, ArrayList<Cliente> clientes)
+    public void run(int nClientes, ArrayList<Cliente> clientes,Barberia barberia)
     {
         while(clientesGenerados<nClientes)
         {
-            Cliente miCliente=new Cliente(Integer.toString(clientesGenerados));
+            Cliente miCliente=new Cliente(clientesGenerados,barberia);
             clientes.add(miCliente);
             clientesGenerados++;
         }

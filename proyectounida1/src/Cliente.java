@@ -1,38 +1,55 @@
-public class Cliente
+public class Cliente extends Thread
 {
-    private String iD;
-    private boolean feliz;
+    private int iD;
+    private Barberia miBarberia;
 
-
-    public Cliente(String id)
+    public Cliente(int iD, Barberia miBarberia)
     {
-        this.iD = id;
-        this.feliz=false;
-
+        this.iD = iD;
+        this.miBarberia = miBarberia;
     }
 
-    public String getID()
+    @Override
+    public synchronized void run()
+    {
+        try {
+            this.entrar();
+        }catch (Exception e)
+        {
+            System.out.println(e.getStackTrace());
+        }
+
+    }
+    public void entrar()throws InterruptedException
+    {
+        System.out.println("sillas libres = "+this.miBarberia.getSillasLibres());
+        if(this.miBarberia.getSillasLibres()==0)
+        {
+            System.out.println("no quedan sillas libres, el cliente "+this.getiD()+" se va enojado");
+        }
+        else
+        {
+           if(this.miBarberia.barberoDormido())
+           {
+               notifyAll();
+           }
+
+               this.miBarberia.aumentarClientesEsperando();
+               while(this.miBarberia.barberoOcupado())
+               {
+
+                   wait();
+               }
+               this.miBarberia.Atender(this.getiD());
+               this.miBarberia.levantarseYSalir(this.getiD());
+               notify();
+
+        }
+    }
+
+    public int getiD()
     {
         return this.iD;
     }
 
-    public void setId(String id)
-    {
-        this.iD = id;
-    }
-
-    public boolean getFeliz()
-    {
-        return feliz;
-    }
-
-    public void setFeliz(boolean feliz)
-    {
-        this.feliz = feliz;
-    }
-
-    public void print()
-    {
-        System.out.println("cliente numero: "+this.getID()+" esta feliz="+this.getFeliz());
-    }
 }

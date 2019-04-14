@@ -1,12 +1,12 @@
-public class Barbero
+public class Barbero extends Thread
 {
-    private String id;
-    private boolean ocupado;
+    public boolean ocupado;
+    public boolean dormido;
 
     public Barbero()
     {
-        this.id="Barbero";
-        this.ocupado=false;
+        this.ocupado = false;
+        this.dormido = true;
     }
 
     public boolean isOcupado()
@@ -18,4 +18,40 @@ public class Barbero
     {
         this.ocupado = ocupado;
     }
+
+    public boolean isDormido()
+    {
+        return dormido;
+    }
+
+    public void setDormido(boolean dormido)
+    {
+        this.dormido = dormido;
+    }
+
+    public synchronized void domir() throws InterruptedException
+    {
+        while(dormido)
+        {
+            wait();
+        }
+    }
+    public void run()
+    {
+
+    }
+
+    public void atender(int id)
+    {
+        this.setOcupado(true);
+        try {
+            sleep(100);
+        }catch (Exception e)
+        {
+            System.out.println(e.getStackTrace());
+        }
+
+    }
+
+
 }
