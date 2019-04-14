@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea0690bd-3ed5-440e-b9a0-bafeb6f52b23" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Barberia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barberia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Barbero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barbero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneradorCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneradorCliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SillaDeBarbero.java" beforeDir="false" />
-    </list>
+    <list default="true" id="ea0690bd-3ed5-440e-b9a0-bafeb6f52b23" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -190,12 +182,12 @@
       <option name="presentableId" value="Default" />
       <updated>1555186887575</updated>
       <workItem from="1555186890592" duration="3495000" />
-      <workItem from="1555265925330" duration="15938000" />
+      <workItem from="1555265925330" duration="15980000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19433000" />
+    <option name="totallyTimeSpent" value="19475000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -210,7 +202,7 @@
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
