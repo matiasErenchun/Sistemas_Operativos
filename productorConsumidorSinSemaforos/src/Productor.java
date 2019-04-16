@@ -13,13 +13,16 @@ public class Productor extends Thread
     public void run()
     {
         int i=0;
-        while (i<this.aProducir)
+
+        while (this.cinta.getProducidos()<this.aProducir)
         {
+            System.out.println("producidos hasta ahora"+this.cinta.getProducidos());
             try
             {
 
 
                 i=this.producir(i);
+                System.out.println(i+" i");
 
             }
             catch (Exception e)
@@ -42,7 +45,6 @@ public class Productor extends Thread
             wait();
         }
         this.cinta.poner();
-        System.out.println("se produjo el elemento numero:"+i);
         notifyAll();
         return i++;
     }

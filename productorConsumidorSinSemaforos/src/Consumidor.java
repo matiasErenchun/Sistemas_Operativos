@@ -11,13 +11,14 @@ public class Consumidor extends Thread
     @Override
     public void run() {
         int i=0;
-        while(i<aProducir)
+        while(this.cinta.getProducidos()<aProducir)
         {
+            System.out.println("consumidos hasta ahora"+this.cinta.getProducidos());
             try
             {
 
                 i=this.consumir(i);
-
+                System.out.println(i+" i");
 
             }catch (Exception e)
             {
@@ -43,7 +44,7 @@ public class Consumidor extends Thread
 
         this.cinta.quitar();
         notifyAll();
-        System.out.println("se consumio el elemento numero: "+i);
-        return i++;
+        i++;
+        return i;
     }
 }
