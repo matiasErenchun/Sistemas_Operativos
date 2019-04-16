@@ -17,23 +17,33 @@ public class Productor extends Thread
         {
             try
             {
-                producir();
+
+
+                i=this.producir(i);
+
             }
             catch (Exception e)
             {
-                System.out.println(e.getStackTrace());
+                //System.out.println(e.getStackTrace());
             }
+
 
         }
     }
 
-    public void producir()throws InterruptedException
+    public int producir(int i)throws InterruptedException
     {
+
+        System.out.println(" cantidad actual"+this.cinta.getCantidad());
         while (this.cinta.getCantidad()==this.cinta.getCantidadMaxima())
         {
+
+            System.out.println("cinta llena");
             wait();
         }
         this.cinta.poner();
+        System.out.println("se produjo el elemento numero:"+i);
         notifyAll();
+        return i++;
     }
 }

@@ -15,23 +15,35 @@ public class Consumidor extends Thread
         {
             try
             {
-                this.consumir();
+
+                i=this.consumir(i);
+
+
             }catch (Exception e)
             {
-                System.out.println(e.getStackTrace());
+                //System.out.println(e.getStackTrace());
             }
-            i++;
+
+
         }
         System.out.println("se consumieron: "+i);
     }
 
-    public void consumir()throws InterruptedException
+    public int consumir(int i)throws InterruptedException
     {
+
         while(this.cinta.getCantidad()==0)
         {
+
+
+            System.out.println("cinta vacia");
+
             wait();
         }
+
         this.cinta.quitar();
         notifyAll();
+        System.out.println("se consumio el elemento numero: "+i);
+        return i++;
     }
 }
