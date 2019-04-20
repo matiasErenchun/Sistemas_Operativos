@@ -1,55 +1,55 @@
 public class Cliente extends Thread
 {
-    private int iD;
     private Barberia miBarberia;
-
-    public Cliente(int iD, Barberia miBarberia)
+    private int id;
+    public Cliente(int id, Barberia barberia)
     {
-        this.iD = iD;
-        this.miBarberia = miBarberia;
+        this.miBarberia=barberia;
+        this.id=id;
     }
 
     @Override
-    public synchronized void run()
-    {
-        try {
-            this.entrar();
-        }catch (Exception e)
+    public  void run() {
+        int i=0;
+        if(this.miBarberia.getSillasLibres()<=0)
         {
-            System.out.println(e.getStackTrace());
-        }
-
-    }
-    public void entrar()throws InterruptedException
-    {
-        System.out.println("sillas libres = "+this.miBarberia.getSillasLibres());
-        if(this.miBarberia.getSillasLibres()==0)
-        {
-            System.out.println("no quedan sillas libres, el cliente "+this.getiD()+" se va enojado");
+            this.miBarberia.aumentarClientesQueLegaron();
+            System.out.println("se fue indignado:"+this.id);
         }
         else
         {
-           if(this.miBarberia.barberoDormido())
-           {
-               notifyAll();
-           }
+            this.miBarberia.sentarse();
+            this.miBarberia.aumentarClientesQueLegaron();
+            System.out.println("se sento "+this.id+" y quedan "+this.miBarberia.getSillasLibres()+" sillas");
+            while (this.miBarberia.isBarberoOcupado())
+            {
+                try
+                {
+                    this.wait();
+                }
+                catch (Exception e)
+                {
+                    //e.printStackTrace();
+                }
 
-               this.miBarberia.aumentarClientesEsperando();
-               while(this.miBarberia.barberoOcupado())
-               {
+                i++;
+            }
+            this.miBarberia.pararse();
+            this.miBarberia.sentarseSillaBarbero();
+            System.out.println("se sento en la silla del barbero "+this.id+" quedan "+this.miBarberia.getSillasLibres()+" sillas libres");
+            int dormir=this.miBarberia.getTiempoAtension();
+            try
+            {
+                sleep(dormir);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
 
-                   wait();
-               }
-               this.miBarberia.Atender(this.getiD());
-               this.miBarberia.levantarseYSalir(this.getiD());
-               notify();
+            this.miBarberia.pararseSillaBarber();
+            System.out.println("se fue feliz " + this.id);
 
         }
     }
-
-    public int getiD()
-    {
-        return this.iD;
-    }
-
 }

@@ -6,24 +6,24 @@ public class Main
     private static Lector miLector;
     private static ArrayList<Cliente> misClientes;
     private static Barberia miBarberia;
+    private static Barbero miBarbero;
+
 
     public static void main(String[] args)
     {
 
         misClientes=new ArrayList<>();
         miLector=new Lector();
-        miGenerador=new GeneradorCliente();
+
         int sillas=miLector.leerEntero("ingrese el numero de sillas");
-        miBarberia=new Barberia(sillas);
         int clientes=miLector.leerEntero("ingrese el numero de clientes");
+
+        miBarberia=new Barberia(sillas,clientes);
+        miBarbero=new Barbero(miBarberia);
+        miGenerador=new GeneradorCliente(misClientes,clientes,miBarberia);
+        miBarbero.start();
         miGenerador.start();
-        miGenerador.run(clientes,misClientes,miBarberia);
 
-
-        for (Cliente c:misClientes)
-        {
-            c.start();
-        }
 
 
     }

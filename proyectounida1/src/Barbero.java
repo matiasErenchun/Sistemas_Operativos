@@ -1,55 +1,42 @@
+import java.util.Random;
+
 public class Barbero extends Thread
 {
-    public boolean ocupado;
-    public boolean dormido;
+    private Barberia miBarberia;
+    private Random miRandom;
 
-    public Barbero()
+    public Barbero(Barberia miBarberia)
     {
-        this.ocupado = false;
-        this.dormido = true;
+        this.miRandom=new Random(System.currentTimeMillis());
+        this.miBarberia = miBarberia;
     }
 
-    public boolean isOcupado()
-    {
-        return ocupado;
-    }
-
-    public void setOcupado(boolean ocupado)
-    {
-        this.ocupado = ocupado;
-    }
-
-    public boolean isDormido()
-    {
-        return dormido;
-    }
-
-    public void setDormido(boolean dormido)
-    {
-        this.dormido = dormido;
-    }
-
-    public synchronized void domir() throws InterruptedException
-    {
-        while(dormido)
-        {
-            wait();
-        }
-    }
-    public void run()
+    @Override
+    public  void run()
     {
 
-    }
 
-    public void atender(int id)
-    {
-        this.setOcupado(true);
-        try {
-            sleep(100);
-        }catch (Exception e)
-        {
-            System.out.println(e.getStackTrace());
-        }
+            while (this.miBarberia.nadieEnBarberia())
+            {
+                try
+                {
+                    wait();
+                } catch (Exception e)
+                {
+                    //e.printStackTrace();
+                }
+            }
+            int tiempoAtencion = miRandom.nextInt(100);
+            this.miBarberia.setTiempoAtension(tiempoAtencion);
+            try
+            {
+                sleep(tiempoAtencion);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
 
     }
 
