@@ -2,22 +2,38 @@ public class Barberia
 {
     private int sillasLibres;
     private int sillasTotales;
-    private boolean barberoOcupado;
-    private boolean sillaBarbero;
-    private int tiempoAtension;
     private int clientesQueLlegaron;
     private int clientesTotales;
+    private int idActual;
+    private Barbero miBarbero;
 
-    public Barberia(int sillas,int clientes)
+    public Barberia(int sillas,int clientes,Barbero barbero)
     {
+        this.miBarbero=barbero;
         this.clientesTotales=clientes;
         this.clientesQueLlegaron=0;
         this.sillasLibres = sillas;
         this.sillasTotales=sillas;
-        this.barberoOcupado=false;
-        this.sillaBarbero=true;
-        this.tiempoAtension=0;
+
     }
+
+    public synchronized void despertarBarbero()throws InterruptedException
+    {
+        if(this.miBarbero.isBarberoDormido())
+        {
+
+                notifyAll();
+        }
+    }
+
+    public synchronized boolean isBarberoDormido()
+    {
+        return this.miBarbero.isBarberoDormido();
+    }
+
+
+
+
 
     public synchronized int getClientesTotales()
     {
@@ -25,7 +41,7 @@ public class Barberia
     }
     public synchronized boolean quedanClientes()
     {
-        if(this.getClientesTotales()<=this.getClientesQueLlegaron()&&this.nadieEnBarberia())
+        if(this.getClientesTotales()<=this.getClientesQueLlegaron()&&this.getSillasLibres()==this.getSillasTotales())
         {
             return false;
         }
@@ -44,18 +60,11 @@ public class Barberia
         this.clientesQueLlegaron++;
     }
 
-    public synchronized int getTiempoAtension()
-    {
-        return tiempoAtension;
-    }
 
-    public synchronized void setTiempoAtension(int tiempoAtension)
+    public synchronized void sentarse(int id)
     {
-        this.tiempoAtension = tiempoAtension;
-    }
+        System.out.println("se sento a esperar "+id);
 
-    public synchronized void sentarse()
-    {
         this.sillasLibres--;
     }
 
@@ -69,48 +78,41 @@ public class Barberia
         return this.sillasLibres;
     }
 
-    public synchronized boolean isBarberoOcupado()
-    {
-        return this.barberoOcupado;
-    }
-
-    public synchronized void setBarberoOcupado(boolean b)
-    {
-        this.barberoOcupado=b;
-    }
-
-    public synchronized boolean isSillaBarberoLibre()
-    {
-        return this.sillaBarbero;
-    }
-
-    public synchronized void setSillaBarbero(boolean b)
-    {
-        this.sillaBarbero=b;
-    }
 
     public synchronized int getSillasTotales()
     {
         return this.sillasTotales;
     }
 
-    public synchronized void sentarseSillaBarbero()
+    public synchronized int sentarseSillaBarbero(int id)throws InterruptedException
     {
 
-        this.setBarberoOcupado(true);// el barbero comienza a atender y por ende esta ocupado
-        this.setSillaBarbero(false);// la siya es ocupada por ende no esta libre
+        while (this.miBarbero.isBarberoOcupado())
+        {
+            wait();
+        }
+        System.out.println("se sento en la silla del barbero:"+id);
+        this.pararse();
+        this.miBarbero.setBarberoOcupado(true);
+        this.miBarbero.setSillaBarbero(false);
+        int aux=this.miBarbero.atender(id);
+        return aux;
+
     }
 
-    public synchronized void pararseSillaBarber()
+    public synchronized void pararseSillaBarber(int id)throws InterruptedException
     {
 
-        this.setBarberoOcupado(false);//el barbero  termina de atender al leinte y queda libre porende no esta ocupado.
-        this.setSillaBarbero(true);//la silla del barbero queda libre
+        this.miBarbero.setBarberoOcupado(false);//el barbero  termina de atender al leinte y queda libre porende no esta ocupado.
+        this.miBarbero.setSillaBarbero(true);//la silla del barbero queda libre
+        System.out.println("se fue feliz " +id);
+        notify();
+
     }
 
     public synchronized boolean nadieEnBarberia()
     {
-        if(this.isSillaBarberoLibre()&&this.getSillasLibres()==this.getSillasTotales())
+        if(this.getSillasTotales()==this.getSillasLibres()&& this.miBarbero.isBarberoOcupado()&&this.miBarbero.isSillaBarbero())
         {
             return true;
         }

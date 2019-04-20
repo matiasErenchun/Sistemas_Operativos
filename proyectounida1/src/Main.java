@@ -18,13 +18,13 @@ public class Main
         int sillas=miLector.leerEntero("ingrese el numero de sillas");
         int clientes=miLector.leerEntero("ingrese el numero de clientes");
 
-        miBarberia=new Barberia(sillas,clientes);
-        miBarbero=new Barbero(miBarberia);
+
+        miBarbero=new Barbero(clientes);
+        miBarberia=new Barberia(sillas,clientes,miBarbero);
         miGenerador=new GeneradorCliente(misClientes,clientes,miBarberia);
+
         miBarbero.start();
         miGenerador.start();
-
-
 
     }
 }

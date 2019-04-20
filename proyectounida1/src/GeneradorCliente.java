@@ -28,6 +28,7 @@ public class GeneradorCliente extends Thread
                 //System.out.println("generador dormido por:"+dormir+" milisegundos");
                 sleep(dormir);
                 Cliente nuevoCliente=new Cliente(nClientesGenerados,this.miBarberia);
+
                 nuevoCliente.start();
                 this.clientesGenerados.add(nuevoCliente);
 

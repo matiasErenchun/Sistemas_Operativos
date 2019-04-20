@@ -8,6 +8,7 @@ public class Cliente extends Thread
         this.id=id;
     }
 
+
     @Override
     public  void run() {
         int i=0;
@@ -18,38 +19,37 @@ public class Cliente extends Thread
         }
         else
         {
-            this.miBarberia.sentarse();
             this.miBarberia.aumentarClientesQueLegaron();
-            System.out.println("se sento "+this.id+" y quedan "+this.miBarberia.getSillasLibres()+" sillas");
-            while (this.miBarberia.isBarberoOcupado())
+            if(this.miBarberia.isBarberoDormido())
             {
-                try
+                try{
+                    this.miBarberia.despertarBarbero();
+                }catch (Exception e)
                 {
-                    this.wait();
-                }
-                catch (Exception e)
-                {
-                    //e.printStackTrace();
+                    e.printStackTrace();
                 }
 
-                i++;
             }
-            this.miBarberia.pararse();
-            this.miBarberia.sentarseSillaBarbero();
-            System.out.println("se sento en la silla del barbero "+this.id+" quedan "+this.miBarberia.getSillasLibres()+" sillas libres");
-            int dormir=this.miBarberia.getTiempoAtension();
+            this.miBarberia.sentarse(this.id);
+
             try
             {
-                sleep(dormir);
+                int aux=this.miBarberia.sentarseSillaBarbero(this.id);
+                sleep(aux);
+
+                this.miBarberia.pararseSillaBarber(this.id);
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                 e.printStackTrace();
             }
 
-            this.miBarberia.pararseSillaBarber();
-            System.out.println("se fue feliz " + this.id);
+
 
         }
+
+
     }
+
+
 }
