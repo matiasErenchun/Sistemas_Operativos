@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea0690bd-3ed5-440e-b9a0-bafeb6f52b23" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/proyectounida1/Barberia.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proyectounida1/Barberia.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/proyectounida1/Barbero.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proyectounida1/Barbero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/proyectounida1/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proyectounida1/Cliente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/proyectounida1/GeneradorCliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proyectounida1/GeneradorCliente.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/proyectounida1/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proyectounida1/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Barberia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barberia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Barbero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Barbero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneradorCliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneradorCliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="ea0690bd-3ed5-440e-b9a0-bafeb6f52b23" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+            <state relative-caret-position="459">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
             </state>
           </provider>
         </entry>
@@ -47,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Barbero.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="93" selection-start-line="93" selection-end-line="93" />
+            <state relative-caret-position="306">
+              <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
               <folding>
                 <element signature="e#545#546#0" expanded="true" />
                 <element signature="e#583#584#0" expanded="true" />
@@ -124,8 +112,8 @@
         <option value="$PROJECT_DIR$/src/GeneradorCliente.java" />
         <option value="$PROJECT_DIR$/src/Barberia.java" />
         <option value="$PROJECT_DIR$/src/Cliente.java" />
-        <option value="$PROJECT_DIR$/src/Barbero.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Barbero.java" />
       </list>
     </option>
   </component>
@@ -209,16 +197,15 @@
       <workItem from="1555186890592" duration="3495000" />
       <workItem from="1555265925330" duration="15980000" />
       <workItem from="1555344928970" duration="207000" />
-      <workItem from="1555789107741" duration="12431000" />
+      <workItem from="1555789107741" duration="12618000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43629000" />
+    <option name="totallyTimeSpent" value="43816000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25718608" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -229,7 +216,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32569557" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32569557" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -340,10 +327,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Barbero.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="93" selection-start-line="93" selection-end-line="93" />
+        <state relative-caret-position="306">
+          <caret line="79" column="30" selection-start-line="79" selection-start-column="30" selection-end-line="79" selection-end-column="30" />
           <folding>
             <element signature="e#545#546#0" expanded="true" />
             <element signature="e#583#584#0" expanded="true" />
@@ -362,13 +356,6 @@
             <element signature="e#1107#1108#0" expanded="true" />
             <element signature="e#1159#1160#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
         </state>
       </provider>
     </entry>
