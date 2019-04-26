@@ -1,55 +1,55 @@
 public class Cliente extends Thread
 {
-    private int iD;
     private Barberia miBarberia;
-
-    public Cliente(int iD, Barberia miBarberia)
+    private int id;
+    public Cliente(int id, Barberia barberia)
     {
-        this.iD = iD;
-        this.miBarberia = miBarberia;
+        this.miBarberia=barberia;
+        this.id=id;
     }
+
 
     @Override
-    public synchronized void run()
-    {
-        try {
-            this.entrar();
-        }catch (Exception e)
+    public  void run() {
+        int i=0;
+        if(this.miBarberia.getSillasLibres()<=0)
         {
-            System.out.println(e.getStackTrace());
-        }
-
-    }
-    public void entrar()throws InterruptedException
-    {
-        System.out.println("sillas libres = "+this.miBarberia.getSillasLibres());
-        if(this.miBarberia.getSillasLibres()==0)
-        {
-            System.out.println("no quedan sillas libres, el cliente "+this.getiD()+" se va enojado");
+            this.miBarberia.aumentarClientesQueLegaron();
+            System.out.println("se fue indignado:"+this.id);
         }
         else
         {
-           if(this.miBarberia.barberoDormido())
-           {
-               notifyAll();
-           }
+            this.miBarberia.aumentarClientesQueLegaron();
+            if(this.miBarberia.isBarberoDormido())
+            {
+                try{
+                    this.miBarberia.despertarBarbero();
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
 
-               this.miBarberia.aumentarClientesEsperando();
-               while(this.miBarberia.barberoOcupado())
-               {
+            }
+            this.miBarberia.sentarse(this.id);
 
-                   wait();
-               }
-               this.miBarberia.Atender(this.getiD());
-               this.miBarberia.levantarseYSalir(this.getiD());
-               notify();
+            try
+            {
+                int aux=this.miBarberia.sentarseSillaBarbero(this.id);
+                sleep(aux);
+
+                this.miBarberia.pararseSillaBarber(this.id);
+            }
+            catch (Exception e)
+            {
+                 e.printStackTrace();
+            }
+
+
 
         }
+
+
     }
 
-    public int getiD()
-    {
-        return this.iD;
-    }
 
 }

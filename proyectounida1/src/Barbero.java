@@ -1,57 +1,100 @@
+import java.util.Random;
+
 public class Barbero extends Thread
 {
-    public boolean ocupado;
-    public boolean dormido;
 
-    public Barbero()
+    private Random miRandom;
+    private boolean barberoOcupado;
+    private boolean sillaBarbero;
+    private boolean barberoDormido;
+    private int clientesTotales;
+    private int clientesAtendidos;
+
+    public Barbero(int clientesTotales)
     {
-        this.ocupado = false;
-        this.dormido = true;
+        this.clientesTotales=clientesTotales;
+        this.miRandom=new Random(System.currentTimeMillis());
+        this.barberoOcupado=false;
+        this.sillaBarbero=true;
+        this.barberoDormido=true;
+
     }
 
-    public boolean isOcupado()
+    public int getClientesTotales()
     {
-        return ocupado;
+        return clientesTotales;
     }
 
-    public void setOcupado(boolean ocupado)
+    public void setClientesTotales(int clientesTotales)
     {
-        this.ocupado = ocupado;
+        this.clientesTotales = clientesTotales;
     }
 
-    public boolean isDormido()
+    public boolean isBarberoOcupado()
     {
-        return dormido;
+        return barberoOcupado;
     }
 
-    public void setDormido(boolean dormido)
+    public void setBarberoOcupado(boolean barberoOcupado)
     {
-        this.dormido = dormido;
+        this.barberoOcupado = barberoOcupado;
     }
 
-    public synchronized void domir() throws InterruptedException
+    public boolean isSillaBarbero()
     {
-        while(dormido)
+        return sillaBarbero;
+    }
+
+    public void setSillaBarbero(boolean sillaBarbero)
+    {
+        this.sillaBarbero = sillaBarbero;
+    }
+
+    public boolean isBarberoDormido()
+    {
+        return barberoDormido;
+    }
+
+    public void setBarberoDormido(boolean barberoDormido)
+    {
+        this.barberoDormido = barberoDormido;
+    }
+
+    public int atender(int id)throws InterruptedException
+    {
+
+        System.out.println("se termino de atender a :"+id);
+        this.clientesAtendidos++;
+        System.out.println("clientes atendidos "+this.clientesAtendidos);
+
+        return this.miRandom.nextInt(500);
+    }
+
+
+
+
+    @Override
+    public  void run()
+    {
+
+        while(clientesTotales>clientesAtendidos)
         {
-            wait();
-        }
-    }
-    public void run()
-    {
+           while(this.isBarberoDormido())
+           {
+               try {
+                   wait();
+               }
+               catch (Exception e)
+               {
 
-    }
+               }
 
-    public void atender(int id)
-    {
-        this.setOcupado(true);
-        try {
-            sleep(100);
-        }catch (Exception e)
-        {
-            System.out.println(e.getStackTrace());
+           }
         }
 
     }
+
+
 
 
 }

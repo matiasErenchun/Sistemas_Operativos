@@ -1,32 +1,76 @@
-import java.util.ArrayList;
-
 public class Barberia
 {
     private int sillasLibres;
     private int sillasTotales;
-    private int clientesEsperando;
+    private int clientesQueLlegaron;
+    private int clientesTotales;
+    private int idActual;
     private Barbero miBarbero;
 
-    public Barberia(int sillas)
+    public Barberia(int sillas,int clientes,Barbero barbero)
     {
+        this.miBarbero=barbero;
+        this.clientesTotales=clientes;
+        this.clientesQueLlegaron=0;
         this.sillasLibres = sillas;
         this.sillasTotales=sillas;
-        this.clientesEsperando=0;
-        this.miBarbero=new Barbero();
-        this.miBarbero.run();
+
     }
 
-    public synchronized void Atender(int id)
+    public synchronized void despertarBarbero()throws InterruptedException
     {
-        this.clientesEsperando--;
-        this.sillasLibres++;
-        this.miBarbero.atender(id);
-        System.out.println("barberoa atiende a :"+id);
+        if(this.miBarbero.isBarberoDormido())
+        {
+
+                notifyAll();
+        }
     }
-    public synchronized void levantarseYSalir(int id)
+
+    public synchronized boolean isBarberoDormido()
     {
-        this.miBarbero.setOcupado(false);
-        System.out.println("El barbero Termino de atender a: "+id);
+        return this.miBarbero.isBarberoDormido();
+    }
+
+
+
+
+
+    public synchronized int getClientesTotales()
+    {
+        return clientesTotales;
+    }
+    public synchronized boolean quedanClientes()
+    {
+        if(this.getClientesTotales()<=this.getClientesQueLlegaron()&&this.getSillasLibres()==this.getSillasTotales())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public synchronized int getClientesQueLlegaron()
+    {
+        return clientesQueLlegaron;
+    }
+
+    public synchronized void aumentarClientesQueLegaron()
+    {
+        this.clientesQueLlegaron++;
+    }
+
+
+    public synchronized void sentarse(int id)
+    {
+        System.out.println("se sento a esperar "+id);
+
+        this.sillasLibres--;
+    }
+
+    public synchronized void pararse()
+    {
+        this.sillasLibres++;
     }
 
     public synchronized int getSillasLibres()
@@ -34,26 +78,41 @@ public class Barberia
         return this.sillasLibres;
     }
 
+
     public synchronized int getSillasTotales()
     {
         return this.sillasTotales;
     }
 
-    public synchronized int getClientesEsperando()
+    public synchronized int sentarseSillaBarbero(int id)throws InterruptedException
     {
-        return this.clientesEsperando;
+
+        while (this.miBarbero.isBarberoOcupado())
+        {
+            wait();
+        }
+        System.out.println("se sento en la silla del barbero:"+id);
+        this.pararse();
+        this.miBarbero.setBarberoOcupado(true);
+        this.miBarbero.setSillaBarbero(false);
+        int aux=this.miBarbero.atender(id);
+        return aux;
+
     }
 
-
-    public synchronized void aumentarClientesEsperando()
+    public synchronized void pararseSillaBarber(int id)throws InterruptedException
     {
-        this.sillasLibres--;
-        this.clientesEsperando++;
+
+        this.miBarbero.setBarberoOcupado(false);//el barbero  termina de atender al leinte y queda libre porende no esta ocupado.
+        this.miBarbero.setSillaBarbero(true);//la silla del barbero queda libre
+        System.out.println("se fue feliz " +id);
+        notify();
+
     }
 
-    public synchronized boolean todasLasSillasLibres()
+    public synchronized boolean nadieEnBarberia()
     {
-        if(this.getSillasTotales()-this.getSillasLibres()==0)
+        if(this.getSillasTotales()==this.getSillasLibres()&& this.miBarbero.isBarberoOcupado()&&this.miBarbero.isSillaBarbero())
         {
             return true;
         }
@@ -63,24 +122,5 @@ public class Barberia
         }
     }
 
-    public boolean tengoSillasLibres()
-    {
-        if(this.getSillasTotales()-this.getSillasLibres()>0)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public synchronized boolean barberoOcupado()
-    {
-        return this.miBarbero.isOcupado();
-    }
-
-    public synchronized boolean barberoDormido()
-    {
-        return this.miBarbero.isDormido();
-    }
 
 }

@@ -1,21 +1,45 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GeneradorCliente extends Thread
 {
-    private static int clientesGenerados;
-    public  GeneradorCliente()
+    private ArrayList<Cliente> clientesGenerados;
+    private int clientesAGenerar;
+    private Random miRandom;
+    private Barberia miBarberia;
+
+    public GeneradorCliente(ArrayList<Cliente> clientesGenerados, int clientesAGenerar,Barberia barberia)
     {
-        clientesGenerados=0;
+        this.miBarberia=barberia;
+        this.clientesGenerados = clientesGenerados;
+        this.clientesAGenerar = clientesAGenerar;
     }
 
-    public void run(int nClientes, ArrayList<Cliente> clientes,Barberia barberia)
+    @Override
+    public void run()
     {
-        while(clientesGenerados<nClientes)
+        int nClientesGenerados=0;
+        while(nClientesGenerados<clientesAGenerar)
         {
-            Cliente miCliente=new Cliente(clientesGenerados,barberia);
-            clientes.add(miCliente);
-            clientesGenerados++;
+            this.miRandom=new Random(System.currentTimeMillis());
+            int dormir=this.miRandom.nextInt(50);
+            try
+            {
+                //System.out.println("generador dormido por:"+dormir+" milisegundos");
+                sleep(dormir);
+                Cliente nuevoCliente=new Cliente(nClientesGenerados,this.miBarberia);
+
+                nuevoCliente.start();
+                this.clientesGenerados.add(nuevoCliente);
+
+                nClientesGenerados++;
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+
         }
-        System.out.println("se generaron: "+clientesGenerados);
+
     }
 }
