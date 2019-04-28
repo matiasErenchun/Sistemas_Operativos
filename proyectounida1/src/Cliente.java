@@ -12,6 +12,7 @@ public class Cliente extends Thread
     @Override
     public  void run() {
         int i=0;
+        /*si la barberia no tiene sillas libres el cliente se va */
         if(this.miBarberia.getSillasLibres()<=0)
         {
             this.miBarberia.aumentarClientesQueLegaron();
@@ -19,6 +20,9 @@ public class Cliente extends Thread
         }
         else
         {
+            /*por otra parte si la barberia tiene sillas libres
+             el cliente intentara sentarse en  la silla del barbero
+             si esta esta ocupada el cliente se sentara a esperar en una de las sillas de la barberia*/
             this.miBarberia.aumentarClientesQueLegaron();
             if(this.miBarberia.isBarberoDormido())
             {
