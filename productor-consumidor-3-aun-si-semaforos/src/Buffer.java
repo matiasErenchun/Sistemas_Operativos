@@ -66,11 +66,32 @@ public class Buffer
 
     public int agegar()
     {
+        System.out.println("se agrego 1 a "+this.cantidadActual);
         return this.cantidadActual++;
+
     }
 
     public int sacar()
     {
+        System.out.println("se saco 1 de "+this.cantidadActual);
         return this.cantidadActual--;
+    }
+
+    public boolean puedoSacar()
+    {
+        if(this.cantidadActual==0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean puedoColocar()
+    {
+        if(this.cantidadActual==this.cantidadMaxima)
+        {
+            return false;
+        }
+        return true;
     }
 }

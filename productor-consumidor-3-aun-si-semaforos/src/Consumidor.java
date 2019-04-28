@@ -17,7 +17,7 @@ public class Consumidor extends Thread
         {
             this.miBuffer.setPermitirEntrarConsumidor(true);
             this.miBuffer.setPermisoActual(0);
-            while(this.miBuffer.isPermitirEntrarProductor()&& this.miBuffer.getPermisoActual()==0)
+            while(this.miBuffer.isPermitirEntrarProductor()&& this.miBuffer.getPermisoActual()==0 || !this.miBuffer.puedoSacar())
             {
 
             }

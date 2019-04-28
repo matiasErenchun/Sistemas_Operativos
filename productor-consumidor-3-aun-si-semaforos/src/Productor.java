@@ -18,7 +18,7 @@ public class Productor extends Thread
         {
             this.miBuffer.setPermitirEntrarProductor(true);
             this.miBuffer.setPermisoActual(1);
-            while(this.miBuffer.isPermitirEntrarConsumidor()&& this.miBuffer.getPermisoActual()==1)
+            while(this.miBuffer.isPermitirEntrarConsumidor()&& this.miBuffer.getPermisoActual()==1 || !this.miBuffer.puedoColocar())
             {
 
             }
