@@ -60,10 +60,11 @@ public class Barbero extends Thread
         this.barberoDormido = barberoDormido;
     }
 
+    /* metodo el cual resive la (int)id del cliente a atender y regresa
+    el tiempo que demorara el barbero en atenderlo en forma d eun int*/
     public int atender(int id)throws InterruptedException
     {
 
-        System.out.println("se termino de atender a :"+id);
         this.clientesAtendidos++;
         System.out.println("clientes atendidos "+this.clientesAtendidos);
 

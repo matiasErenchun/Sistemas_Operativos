@@ -39,17 +39,7 @@ public class Barberia
     {
         return clientesTotales;
     }
-    public synchronized boolean quedanClientes()
-    {
-        if(this.getClientesTotales()<=this.getClientesQueLlegaron()&&this.getSillasLibres()==this.getSillasTotales())
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+
     public synchronized int getClientesQueLlegaron()
     {
         return clientesQueLlegaron;
@@ -105,6 +95,7 @@ public class Barberia
 
         this.miBarbero.setBarberoOcupado(false);//el barbero  termina de atender al leinte y queda libre porende no esta ocupado.
         this.miBarbero.setSillaBarbero(true);//la silla del barbero queda libre
+        System.out.println("se termino de atender a :"+id);
         System.out.println("se fue feliz " +id);
         notify();
 

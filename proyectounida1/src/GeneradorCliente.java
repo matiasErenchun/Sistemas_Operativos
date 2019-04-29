@@ -25,7 +25,7 @@ public class GeneradorCliente extends Thread
             int dormir=this.miRandom.nextInt(50);
             try
             {
-                //System.out.println("generador dormido por:"+dormir+" milisegundos");
+
                 sleep(dormir);
                 Cliente nuevoCliente=new Cliente(nClientesGenerados,this.miBarberia);
 
