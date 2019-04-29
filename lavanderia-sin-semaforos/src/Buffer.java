@@ -67,12 +67,13 @@ public class Buffer
         return false;
     }
 
-    public  Lavadora getLavadora()
+    public  Lavadora getLavadora(int idCliente)
     {
         while (this.isEmpty())
         {
             this.lock.lock();
             try{
+                System.out.println("el cliente: "+idCliente+" espera labadora");
                 wait();
             }
             catch (Exception e)

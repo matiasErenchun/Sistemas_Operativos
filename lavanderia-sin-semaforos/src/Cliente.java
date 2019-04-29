@@ -18,11 +18,12 @@ public class Cliente extends Thread
         while(this.atendido==false)
         {
 
-            this.miLabadora = this.miBuffer.getLavadora();
+            this.miLabadora = this.miBuffer.getLavadora(this.id);
             System.out.println("el cliente " + this.id + " esta usando la lavadora :" + this.miLabadora.getId());
             try {
                 sleep(this.miLabadora.tiempoDelabado());
                 this.miBuffer.agregarLabadora(this.miLabadora);
+                System.out.println("el cliente " + this.id + " dejo de  usar la lavadora :" + this.miLabadora.getId());
                 this.atendido=true;
             } catch (Exception e) {
                 e.printStackTrace();
