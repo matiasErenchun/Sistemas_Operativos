@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65d1b26f-be66-450b-84b9-7cc7e67a5a44" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../lavanderia-sin-semaforos/src/Buffer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lavanderia-sin-semaforos/src/Cliente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lavanderia-sin-semaforos/src/GeneradorCliente.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../lavanderia-sin-semaforos/src/Lavadora.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../proyectounida1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../proyectounida1/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,7 +29,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Productor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
+            <state relative-caret-position="50">
               <caret line="20" column="103" selection-start-line="20" selection-start-column="103" selection-end-line="20" selection-end-column="103" />
             </state>
           </provider>
@@ -80,11 +75,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="781" />
-    <option name="height" value="674" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="324" />
+    <option name="y" value="30" />
+    <option name="width" value="962" />
+    <option name="height" value="331" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -163,18 +158,17 @@
       <option name="presentableId" value="Default" />
       <updated>1556411951391</updated>
       <workItem from="1556411958518" duration="2675000" />
-      <workItem from="1556555846011" duration="1086000" />
+      <workItem from="1556555846011" duration="1096000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3761000" />
+    <option name="totallyTimeSpent" value="3771000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="732" extended-state="6" />
-    <editor active="true" />
+    <frame x="324" y="30" width="962" height="331" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25378788" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3657205" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -234,7 +228,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Productor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="50">
           <caret line="20" column="103" selection-start-line="20" selection-start-column="103" selection-end-line="20" selection-end-column="103" />
         </state>
       </provider>
