@@ -17,8 +17,16 @@ public class Abeja extends Thread
     {
         while(this.entregados<2)
         {
-            this.miTarro.poner(this.id);
-            this.entregados++;
+            try
+            {
+                this.miTarro.poner(this.id);
+            }catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+
+
         }
 
         System.out.println(" la abeja :"+this.id+" se fue a dormir");

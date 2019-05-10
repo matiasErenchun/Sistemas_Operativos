@@ -11,12 +11,7 @@ public class Oso extends Thread
     {
         while (true)
         {
-            int i =0;
-            while (i<5)
-            {
-                this.miTarro.sacar();
-                i++;
-            }
+            this.miTarro.comer();
 
         }
     }
