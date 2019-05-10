@@ -1,13 +1,23 @@
 public class Oso extends Thread
 {
-    public Oso()
+    private Tarro miTarro;
+    public Oso(Tarro tarro)
     {
-
+        this.miTarro=tarro;
     }
 
     @Override
     public void run()
     {
-        super.run();
+        while (true)
+        {
+            int i =0;
+            while (i<5)
+            {
+                this.miTarro.sacar();
+                i++;
+            }
+
+        }
     }
 }
