@@ -44,12 +44,12 @@ public class Tarro
     {
 
         this.tarro[index]="_";
+        System.out.println(" el oso saco un tarro");
         for (int j = 0; j < this.tarro.length ; j++)
         {
             System.out.print(this.tarro[j]);
         }
         System.out.println("");
-        System.out.println(" el oso saco un tarro");
         this.pActual--;
         this.espacio.release();
 
