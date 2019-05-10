@@ -11,8 +11,12 @@ public class Oso extends Thread
     {
         while (true)
         {
-            this.miTarro.comer();
-
+            try {
+                this.miTarro.comer();
+            }catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ public class Abeja extends Thread
             try
             {
                 this.miTarro.poner(this.id);
+                this.entregados++;
             }catch (InterruptedException e)
             {
                 e.printStackTrace();
