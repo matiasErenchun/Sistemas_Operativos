@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 
+
 int j=0;
 
 struct hola

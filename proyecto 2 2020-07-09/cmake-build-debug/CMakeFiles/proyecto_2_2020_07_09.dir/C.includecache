@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/matias/Escritorio/repo-local/Sistemas_Operativos/proyecto 2 2020-07-09/main.c
+stdio.h
+-
+pthread.h
+-
+unistd.h
+-
+stdlib.h
+-
+

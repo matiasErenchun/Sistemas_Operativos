@@ -1,0 +1,1 @@
+/usr/bin/cc -g   CMakeFiles/proyecto_2_2020_07_09.dir/main.c.o CMakeFiles/proyecto_2_2020_07_09.dir/prueevas.c.o  -o proyecto_2_2020_07_09 

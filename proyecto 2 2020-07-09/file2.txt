@@ -1,0 +1,5 @@
+muertos 4
+muertos 10
+muertos 2
+muertos 0
+muertos 9

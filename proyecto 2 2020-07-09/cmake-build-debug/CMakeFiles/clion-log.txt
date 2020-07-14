@@ -1,1 +1,4 @@
-MinGW not found at:  Configure
+/home/matias/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7846.88/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/home/matias/Escritorio/repo-local/Sistemas_Operativos/proyecto 2 2020-07-09"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/matias/Escritorio/repo-local/Sistemas_Operativos/proyecto 2 2020-07-09/cmake-build-debug

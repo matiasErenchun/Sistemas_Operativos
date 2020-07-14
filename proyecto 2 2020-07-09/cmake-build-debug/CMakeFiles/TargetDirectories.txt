@@ -1,0 +1,3 @@
+/home/matias/Escritorio/repo-local/Sistemas_Operativos/proyecto 2 2020-07-09/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/matias/Escritorio/repo-local/Sistemas_Operativos/proyecto 2 2020-07-09/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/matias/Escritorio/repo-local/Sistemas_Operativos/proyecto 2 2020-07-09/cmake-build-debug/CMakeFiles/proyecto_2_2020_07_09.dir
