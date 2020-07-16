@@ -4,13 +4,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-int escrituras=5;
+int ESCRITURAS=5;
+int NUM_MEDICOS=2;
+int NUM_LABS =2;
 
 
 typedef struct mutex
 {
     pthread_mutex_t mutex_file;
-    char archivo[100];
+    FILE *file;
+    char *texto;
+    int valor_random;
 
 }mutex_file;
 
@@ -19,34 +23,27 @@ void *escribir(void *arg)
 {
     mutex_file *A;
     A=(mutex_file *)arg;
-    FILE *file;
-    file=fopen(A->archivo,"w");
-    if((file == NULL))
+    srand(time(NULL));
+    int i = 0;
+    while (i < ESCRITURAS)
     {
-        printf("Error en apertura del fichero \n");
-    }
-    else{
-        srand(time(NULL));
-        int i = 0;
-        while (i < escrituras)
-        {
-            pthread_mutex_lock(&A->mutex_file);
-            int p = pthread_self();
-            int muertoshoy= rand()%(11);
-            char hola[100];
-            snprintf(hola,100,"%d",muertoshoy);
+        pthread_mutex_lock(&A->mutex_file);
+        int p = pthread_self();
+        int muertoshoy= rand()%(A->valor_random);
+        char hola[100];
+        snprintf(hola,100,"%d",muertoshoy);
 
-            char muertos[]="muertos ";
-            strcat(muertos,hola);
+        char muertos[100];
+        stpcpy(muertos,A->texto);
+        strcat(muertos,hola);
 
-            printf("hola %d escribe\n", p);
-            fputs(muertos,file);
-            fputs("\n",file);
-            pthread_mutex_unlock(&A->mutex_file);
-            sleep(1);
-            i++;
-        }
-        fclose(file);
+        printf("hola %d escribe\n", p);
+        fputs(muertos,A->file);
+        fputs("\n",A->file);
+        pthread_mutex_unlock(&A->mutex_file);
+        sleep(1);
+        i++;
+
     }
 }
 
@@ -55,7 +52,7 @@ void *leer( void *arg)
     struct mutex *A;
     A=(struct mutex *)arg;
     int i =0;
-    while (i<escrituras)
+    while (i<ESCRITURAS)
     {
         pthread_mutex_lock(&A->mutex_file);
         int p=pthread_self();
@@ -77,37 +74,50 @@ void main()
     pthread_mutex_init(&mutex_file2.mutex_file,NULL);
     char *file1="file1.txt";
     char *file2="file2.txt";
-    strcpy(mutex_file1.archivo,file1);
-    strcpy(mutex_file2.archivo,file2);
-
-    printf("archivo 1 %s\n",mutex_file1.archivo);
-    printf("archivo 2 %s\n",mutex_file2.archivo);
-
-
-
-    pthread_t pid_lectores[2];
-    pthread_t pid_escritores[2];
-
-
-    for (int i = 0; i < 2; i++)
+    char *texto1="infectados ";
+    char *texto2="muertos ";
+    mutex_file1.texto=texto1;
+    mutex_file2.texto=texto2;
+    mutex_file1.valor_random=100;
+    mutex_file2.valor_random=10;
+    mutex_file1.file=fopen(file1,"w+");
+    mutex_file2.file=fopen(file2,"w+");
+    if((mutex_file1.file == NULL || mutex_file2.file== NULL))
     {
-        pthread_create(&pid_lectores[i], NULL, leer, (void *)&mutex_file1);
+        printf("Error en apertura del fichero \n");
+    } else{
+        pthread_t pid_labs[NUM_LABS];
+        pthread_t pid_medicos[NUM_MEDICOS];
+
+
+        for (int i = 0; i < NUM_LABS; i++)
+        {
+            pthread_create(&pid_labs[i], NULL, escribir, (void *)&mutex_file1);
+        }
+
+        for (int i = 0; i < NUM_MEDICOS; i++)
+        {
+            pthread_create(&pid_medicos[i], NULL, escribir, (void *)&mutex_file2);
+        }
+
+        for (int i = 0; i < NUM_LABS; i++)
+        {
+            pthread_join(pid_labs[i], NULL);
+        }
+
+        for (int i = 0; i < NUM_MEDICOS; i++)
+        {
+            pthread_join(pid_medicos[i], NULL);
+        }
+        fclose(mutex_file1.file);
+        fclose(mutex_file2.file);
     }
 
-    for (int i = 0; i < 2; i++)
-    {
-        pthread_create(&pid_escritores[i], NULL, escribir, (void *)&mutex_file2);
-    }
 
-    for (int i = 0; i < 2; i++)
-    {
-        pthread_join(pid_lectores[i], NULL);
-    }
 
-    for (int i = 0; i < 2; i++)
-    {
-        pthread_join(pid_escritores[i], NULL);
-    }
+
+
+
 
 
 }

@@ -1,0 +1,10 @@
+infectados 4
+infectados 4
+infectados 8
+infectados 5
+infectados 6
+infectados 10
+infectados 1
+infectados 2
+infectados 7
+infectados 9
