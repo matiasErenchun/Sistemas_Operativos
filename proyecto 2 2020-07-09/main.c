@@ -66,6 +66,7 @@ void leer(struct mutex *sfile1,struct mutex *sfile2,struct mutex *files_destino)
 {
 
 //-----------desde aqui leemos los infectados
+    pthread_mutex_lock(&sfile1->mutex_file);
     char caracteres[100];
     int infectados_total=0;
     int largo=contarfilas(sfile1);
@@ -91,9 +92,11 @@ void leer(struct mutex *sfile1,struct mutex *sfile2,struct mutex *files_destino)
         }
         i++;
     }
+    pthread_mutex_unlock(&sfile1->mutex_file);
     printf("hola1 \n");
     //-----------desde aqui leemos los muertos
 
+    pthread_mutex_lock(&sfile2->mutex_file);
     char caracteres2[100];
     int muertos_total=0;
     largo=contarfilas(sfile2);
@@ -121,7 +124,7 @@ void leer(struct mutex *sfile1,struct mutex *sfile2,struct mutex *files_destino)
         i++;
 
     }
-
+    pthread_mutex_unlock(&sfile2->mutex_file);
     //--------------aqui los escribimos en el archivo general
     char n_muertos[100];
     char n_infectados[100];
@@ -135,68 +138,3 @@ void leer(struct mutex *sfile1,struct mutex *sfile2,struct mutex *files_destino)
     fputs("\n",files_destino->file);
 }
 
-
-
-
-int  main()
-{
-    struct mutex mutex_file1,mutex_file2,mutex_file3;
-    pthread_mutex_init(&mutex_file1.mutex_file,NULL);
-    pthread_mutex_init(&mutex_file2.mutex_file,NULL);
-    pthread_mutex_init(&mutex_file3.mutex_file,NULL);
-
-    char *file1="file1.txt";
-    char *file2="file2.txt";
-    char *file3="file3.txt";
-    char *texto1="infectados ";
-    char *texto2="muertos ";
-    mutex_file1.texto=texto1;
-    mutex_file2.texto=texto2;
-    mutex_file3.texto=" ";
-
-    mutex_file1.valor_random=100;
-    mutex_file2.valor_random=10;
-    mutex_file3.valor_random=0;
-
-    mutex_file1.file=fopen(file1,"w+");
-    mutex_file2.file=fopen(file2,"w+");
-    if((mutex_file1.file == NULL || mutex_file2.file== NULL))
-    {
-        printf("Error en apertura del fichero \n");
-    } else{
-        pthread_t pid_labs[NUM_LABS];
-        pthread_t pid_medicos[NUM_MEDICOS];
-
-
-        for (int i = 0; i < NUM_LABS; i++)
-        {
-            pthread_create(&pid_labs[i], NULL, escribir, (void *)&mutex_file1);
-        }
-
-        for (int i = 0; i < NUM_MEDICOS; i++)
-        {
-            pthread_create(&pid_medicos[i], NULL, escribir, (void *)&mutex_file2);
-        }
-
-        for (int i = 0; i < NUM_LABS; i++)
-        {
-            pthread_join(pid_labs[i], NULL);
-        }
-
-        for (int i = 0; i < NUM_MEDICOS; i++)
-        {
-            pthread_join(pid_medicos[i], NULL);
-        }
-        fclose(mutex_file1.file);
-        fclose(mutex_file2.file);
-        mutex_file1.file=fopen(file1,"r");
-        mutex_file2.file=fopen(file2,"r");
-        mutex_file3.file=fopen(file3,"a");
-        leer(&mutex_file1, &mutex_file2, &mutex_file3);
-        fclose(mutex_file1.file);
-        fclose(mutex_file2.file);
-        fclose(mutex_file3.file);
-    }
-    return 0;
-
-}
