@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Sistemas_Operativos">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/matrizxmatriz.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lavanderia-sin-semaforos.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
