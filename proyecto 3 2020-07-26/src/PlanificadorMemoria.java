@@ -16,10 +16,13 @@ public class PlanificadorMemoria
             this.volcarMemoriaADisco();
         }
         int i=programa.getHead();
-        int j=this.memoriaPrincipal.getFlagLastIndex();
+        int j=this.memoriaPrincipal.getFirsFreeblock();
         while (i<=programa.getEnd())
         {
-            //falta copiar las cosas y todo lo de la memoria principal
+            StringBuilder string = new StringBuilder("");
+            string.append(Integer.toString(programa.getId())+Integer.toString(i));
+            this.memoriaPrincipal.setcontenido(string.toString(),this.disco.getIndex(i));
+            i++;
         }
     }
 

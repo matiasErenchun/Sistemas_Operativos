@@ -27,7 +27,7 @@ public class Disco
         this.Disco.set(index,text);
     }
 
-    public void cargarPrograma(Programa programa)
+    public void cargarPrograma(Programa programa)//cargamos el programa al disco desde el generador
     {
         programa.setHead(this.indexFlag);
         int count = this.indexFlag;

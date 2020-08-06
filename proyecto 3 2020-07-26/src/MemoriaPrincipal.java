@@ -2,17 +2,21 @@ import java.util.ArrayList;
 
 public class MemoriaPrincipal
 {
-    private ArrayList<String> memoria;
+    private String [] memoria;
     private int memoriaLibre;
     private TraductoDeDirecciones diccioario;
-    private int flagLastIndex;
+    private int firsFreeBlock;//es
 
     public MemoriaPrincipal(int tamaño, TraductoDeDirecciones diccioario)
     {
-        this.memoria = new ArrayList<>(tamaño);
+        this.memoria = new String[tamaño];
         this.memoriaLibre=tamaño;
         this.diccioario=diccioario;
-        this.flagLastIndex=0;
+        this.firsFreeBlock =0;
+        for (int i = 0; i < tamaño; i++)
+        {
+            this.memoria[i]="0";
+        }
     }
 
     public int getMemoriaLibre()
@@ -20,14 +24,14 @@ public class MemoriaPrincipal
         return memoriaLibre;
     }
 
-    public void setFlagLastIndex(int flagLastIndex)
+    public void setFirsFreeblock(int firsFreeblock)
     {
-        this.flagLastIndex = flagLastIndex;
+        this.firsFreeBlock = firsFreeblock;
     }
 
-    public int getFlagLastIndex()
+    public int getFirsFreeblock()
     {
-        return flagLastIndex;
+        return firsFreeBlock;
     }
 
     public void setMemoriaLibre(int memoriaLibre)
@@ -35,10 +39,27 @@ public class MemoriaPrincipal
         this.memoriaLibre = memoriaLibre;
     }
 
-    public void setcontenido(int index, String instruccion )
+    public void setcontenido(String key, String instruccion )
     {
-
+        //la llave  se crear al concatenar el id del programa con el indice de la instruccion
+        this.memoria[this.firsFreeBlock]=instruccion;//agregamos el contenido en direccion de bloke libre
+        this.diccioario.SetDireccion(key,this.firsFreeBlock);//almacenamos al direccion donde se guardo
+        this.firsFreeBlock++;
+        this.memoriaLibre--;
     }
+
+    // esta funsion muestra la informacion de la memoria principal
+     public void print()
+     {
+         System.out.print("{");
+         for (int i = 0; i < this.memoria.length ; i++) {
+             System.out.print("["+i+":"+this.memoria[i]+"]");
+         }
+         System.out.print("}");
+         System.out.println(" ");
+         System.out.println("memoria libre: "+this.getMemoriaLibre());
+         System.out.println("ultimo bloke libre: "+this.getFirsFreeblock());
+     }
 
 
 }

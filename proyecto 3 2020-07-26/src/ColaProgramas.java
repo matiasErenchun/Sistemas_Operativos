@@ -13,7 +13,7 @@ public class ColaProgramas
 
     public Programa getFirst()
     {
-        return this.colaDeEjecucion.getFirst();
+        return this.colaDeEjecucion.pollFirst();
     }
 
     public void agregarPrograma(Programa programa)
@@ -45,5 +45,10 @@ public class ColaProgramas
         {
             p[i].printProgram();
         }
+    }
+
+    public boolean isEmpty()
+    {
+        return this.colaDeEjecucion.isEmpty();
     }
 }
