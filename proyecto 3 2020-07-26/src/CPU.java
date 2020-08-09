@@ -13,6 +13,12 @@ public class CPU
         this.instruccionesMax=instruccionesMax;
     }
 
+    /*
+    se ejecuta un programa  el cual  se pasa como parametro
+    la cpu tiene uan cantidad de instrucciones maximaspor turno,
+    de manera que si un programa requiere mas instrucciones tiene que salir de la cpu,
+    volviendo a la cola de programas
+     */
     public Programa correrPrograma(Programa programa)
     {
         int i=programa.getPc();
@@ -31,18 +37,20 @@ public class CPU
         return programa;
     }
 
+    /*
+    inicia el proceso de ejecucion de cada programa en al cola de programas
+     */
     public void ejecutar()
     {
         int progrmasEjecutados=0;
         int totalProgrmas=this.planificadorProgramas.totalProgramas();
-        System.out.println("total programas:"+totalProgrmas);
-        Programa programaActual=this.planificadorProgramas.getFistProgram();
-        Programa programaAux;
+        Programa programaActual=this.planificadorProgramas.getFistProgram();//este es el programa que se esta cargando o ejecutando en la cpu
+        Programa programaAux;// este es el programa que esta saliendo de la cpu
         boolean continuar =true;
         while( continuar)
         {
             programaAux=this.correrPrograma(programaActual);
-            if(programaAux.getTime()<=0)
+            if(programaAux.getTime()<=0)//cuando no ya no le quedna ams ejecuciones termina el programa
             {
                 System.out.println("programa:"+programaAux.getId()+" termino su ejecucion");
                 progrmasEjecutados++;

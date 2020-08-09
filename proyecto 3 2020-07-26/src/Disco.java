@@ -29,6 +29,11 @@ public class Disco
         this.Disco.set(index,text);
     }
 
+
+    /*
+    esta funcion carga un programa en el disco duro creando los segmentos,
+    ademas de copiar las instrucciones( en este caso soloe s id  del programa al que pertenese)
+     */
     public void cargarPrograma(Programa programa)//cargamos el programa al disco desde el generador
     {
         int head = this.indexFlag;
@@ -50,11 +55,20 @@ public class Disco
         this.mostrarDisco();
     }
 
+
+    /*
+    se agrega uns egmentoo ya creado a lista de segmento
+     */
     public void agregarSegmento(Segmento segmento)
     {
         this.segmentos.add(segmento);
     }
 
+    /*
+    busca un segmento segun un int correspodniente al program id
+    si encuentra uan coincidencia retorna el segmento correspondiente,
+    de otra manera retorna un segmento de error (valores -1 en sus campos)
+     */
     public Segmento getSegmentoPID(int pid)
     {
         for (Segmento segmento: this.segmentos)
@@ -90,6 +104,7 @@ public class Disco
     {
         return this.indexFlag;
     }
+
 
     public int getEspacioLibre()
     {

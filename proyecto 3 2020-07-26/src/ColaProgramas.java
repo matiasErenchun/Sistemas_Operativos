@@ -1,6 +1,5 @@
-import javax.swing.*;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
+
 
 public class ColaProgramas
 {
@@ -11,11 +10,20 @@ public class ColaProgramas
         this.colaDeEjecucion = new ArrayDeque();
     }
 
+    /*
+    permite sacar de la cola el primer elemento.
+     */
     public Programa getFirst()
     {
         return this.colaDeEjecucion.pollFirst();
     }
 
+
+    /*
+    permite agregar un programa a la cola de progrmas
+    si el programa tiene prioridad mayor a 8 se añaande en la cabecera,
+    si tiene prioridad  menor a 9 se agrega al final de la cola.
+     */
     public void agregarPrograma(Programa programa)
     {
         System.out.println("se agrego programa:"+programa.getId()+" prioridad:"+programa.getPrioridad());
@@ -32,11 +40,17 @@ public class ColaProgramas
 
     }
 
+    /*
+    permite inspeccionar el primer elemento d ela cola de programas
+     */
     public Programa verElPrimero()
     {
         return this.colaDeEjecucion.peekFirst();
     }
 
+    /*
+    imprime en la consola un representacion de la cola de progrmas
+     */
     public void mostrarColaProgramas()
     {
         System.out.println(" ");
@@ -49,11 +63,18 @@ public class ColaProgramas
         }
     }
 
+    /*
+    regresa un valor voleano true si la cola esta vacia
+    y false si la cola tiene elementos.
+     */
     public boolean isEmpty()
     {
         return this.colaDeEjecucion.isEmpty();
     }
 
+    /*
+    regresa un entero con la cantidad de programas en al cola.
+     */
     public int totalProgrmas()
     {
         return this.colaDeEjecucion.size();

@@ -59,6 +59,10 @@ public class PlanificadorMemoria
         this.memoriaPrincipal.print();
     }
 
+    /*
+    en base a un program id entregado verifica si el programa esta  cargado en memoria principal
+    retornando False si no se encuentra en memoria y True si es que si se encuentra en la memoria.
+     */
     public boolean estaEnMemoriaPrincipal(int pID)
     {
         int answer=this.memoriaPrincipal.ExistePID(pID);

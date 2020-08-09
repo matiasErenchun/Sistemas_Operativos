@@ -94,6 +94,9 @@ public class MemoriaPrincipal
         return -1;
     }
 
+    /*
+    retorna un segmento en base a un program id  entregado, si nos e encuenta retorna un segmento error
+     */
     public Segmento getSegmentoPID(int pID)
     {
         for (Segmento segmento: this.segmentos)
@@ -131,6 +134,10 @@ public class MemoriaPrincipal
          return this.memoria[index];
      }
 
+     /*
+     retorna un arreglo con todos los program id correspondientes
+     a los segmentos cargados en memoria
+      */
      public ArrayList<Integer> getPids()
      {
          ArrayList<Integer> listaAux= new ArrayList<>();

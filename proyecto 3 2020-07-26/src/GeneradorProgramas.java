@@ -15,6 +15,14 @@ public class GeneradorProgramas
         this.maxLargoPrograma=largoMax;
     }
 
+    /*
+    se le pasa como parametro la cantidad de progrmas que se desea generar, si al generar un programa
+    el tamaño de este supera el espacio libre, el programa no se genera,
+     esto es  ya que lso tamaños son aleatorios y el usuario puede ingresa cualquier numero de programas.
+
+     una vez ggeenrado el programa este se carga al disco y se  agrega a la cola de programas
+     segun corresponda a su prioridad.
+     */
     public void generarProgramas(int cantidadProgramas )
     {
         Random random= new Random(System.currentTimeMillis());

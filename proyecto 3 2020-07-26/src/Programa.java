@@ -12,7 +12,7 @@ public class Programa
         this.largo=largo;
         this.prioridad=prioridad;
         this.pc=0;
-        this.time= largo;
+        this.time = largo;
     }
 
     public int getId()

@@ -2,6 +2,7 @@ public class Main
 {
     public static void main(String[] args)
     {
+
         Disco disco= new Disco(30);
         TraductoDeDirecciones traductor= new TraductoDeDirecciones();
         MemoriaPrincipal memoria= new MemoriaPrincipal(10,traductor);
@@ -13,8 +14,6 @@ public class Main
         CPU cpu= new CPU(traductor,planificador,memoria,4);
         cpu.ejecutar();
         traductor.print();
-
-
 
     }
 }
