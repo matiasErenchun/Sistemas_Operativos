@@ -1,33 +1,23 @@
 public class Programa
 {
     private int id;
-    private int head;
-    private int end;
     private int largo;
     private int prioridad;
+    private int pc;
+    private int time;
 
     public Programa(int id, int largo, int prioridad)
     {
         this.id = id;
-        this.head = -1;
-        this.end = -1;
         this.largo=largo;
         this.prioridad=prioridad;
+        this.pc=0;
+        this.time= largo;
     }
 
     public int getId()
     {
         return this.id;
-    }
-
-    public int getHead()
-    {
-        return this.head;
-    }
-
-    public int getEnd()
-    {
-        return this.end;
     }
 
     public int getLargo()
@@ -40,18 +30,33 @@ public class Programa
         return this.prioridad;
     }
 
-    public void setHead(int head)
+    public int getPc()
     {
-        this.head = head;
+        return pc;
     }
 
-    public void setEnd(int end)
+    public void setPc(int pc)
     {
-        this.end = end;
+        this.pc = pc;
+    }
+
+    public int getTime()
+    {
+        return time;
+    }
+
+    public void decrementarTime()
+    {
+        this.time--;
     }
 
     public void printProgram()
     {
-        System.out.println("id:"+this.getId()+" prioridad:"+this.getPrioridad()+" direccion head:"+this.getHead()+" end:"+this.getEnd());
+        System.out.println("id:"+this.getId()+" prioridad:"+this.getPrioridad()+" largo:"+this.largo);
+    }
+
+    public void incrementarPC()
+    {
+        this.pc++;
     }
 }

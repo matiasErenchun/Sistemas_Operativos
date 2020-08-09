@@ -4,24 +4,28 @@ import java.util.HashMap;
 
 public class TraductoDeDirecciones
 {
-    private HashMap<String,Integer> tablaMemoria;
+    private HashMap<Integer,Integer> tablaMemoria;
 
     public TraductoDeDirecciones()
     {
         this.tablaMemoria = new HashMap<>();
     }
 
-    public Integer getDireccion(String s)
+    public Integer getDireccion(Integer pID)
     {
-        Integer i=this.tablaMemoria.get(s);
+        Integer i=this.tablaMemoria.get(pID);
         return i;
     }
 
-    public void SetDireccion(String s, Integer i)
+    public void SetDireccion(Integer pID, Integer indexHeadM)
     {
-        this.tablaMemoria.putIfAbsent(s,i);//faltan validaciones
+        this.tablaMemoria.putIfAbsent( pID,indexHeadM);//faltan validaciones
     }
 
+    public void borarr()
+    {
+        this.tablaMemoria.clear();
+    }
 
     public void print()
     {
