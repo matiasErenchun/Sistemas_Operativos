@@ -33,4 +33,14 @@ public class PlanificadorProgramas
     {
         this.colaProgramas.agregarPrograma(programa);
     }
+
+    public void mostrarCola()
+    {
+        this.colaProgramas.mostrarColaProgramas();
+    }
+
+    public int totalProgramas()
+    {
+        return this.colaProgramas.totalProgrmas();
+    }
 }

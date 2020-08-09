@@ -43,12 +43,19 @@ public class ColaProgramas
         Programa[] p=this.colaDeEjecucion.toArray(new Programa[0]);
         for (int i = 0; i <p.length ; i++)
         {
+            System.out.println("cola de porgramas");
             p[i].printProgram();
+            System.out.println(" ");
         }
     }
 
     public boolean isEmpty()
     {
         return this.colaDeEjecucion.isEmpty();
+    }
+
+    public int totalProgrmas()
+    {
+        return this.colaDeEjecucion.size();
     }
 }

@@ -6,15 +6,13 @@ public class GeneradorProgramas
     private ColaProgramas  colaProgramas;
     private int programId;
     private int maxLargoPrograma;
-    private int maxTime;
 
-    public GeneradorProgramas(Disco disco, ColaProgramas colaProgramas, int largoMax, int maxTime)
+    public GeneradorProgramas(Disco disco, ColaProgramas colaProgramas, int largoMax)
     {
         this.disco = disco;
         this.colaProgramas = colaProgramas;
         this.programId=1;
         this.maxLargoPrograma=largoMax;
-        this.maxTime = maxTime;
     }
 
     public void generarProgramas(int cantidadProgramas )
@@ -34,8 +32,7 @@ public class GeneradorProgramas
                 System.out.println("programa:"+this.programId+"no se creo, no cupia en el disco");
             }
             else {
-                int time = random.nextInt(this.maxTime)+1;
-                int id=this.programId;
+
                 Programa programa=new Programa(this.programId,largo,prioridad);
                 this.disco.cargarPrograma(programa);
                 this.colaProgramas.agregarPrograma(programa);

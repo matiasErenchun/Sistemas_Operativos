@@ -21,7 +21,7 @@ public class CPU
         while(i < programa.getLargo() && instruccionesEjecutadas<this.instruccionesMax)
         {
             String instruccion=this.memoriaPrincipal.getIndex(head+i);
-            System.out.println("ejecuantado la instruccion:"+i+" del progema:"+programa.getId()+" la instruccion es:"+instruccion+" el total de instrucciones es:"+programa.getLargo());
+            System.out.println("ejecuantado la instruccion:"+(i+1)+" del progema:"+programa.getId()+" la instruccion es:"+instruccion+" el total de instrucciones es:"+programa.getLargo());
             programa.decrementarTime();
             programa.incrementarPC();
             i++;
@@ -33,20 +33,34 @@ public class CPU
 
     public void ejecutar()
     {
+        int progrmasEjecutados=0;
+        int totalProgrmas=this.planificadorProgramas.totalProgramas();
+        System.out.println("total programas:"+totalProgrmas);
         Programa programaActual=this.planificadorProgramas.getFistProgram();
         Programa programaAux;
-        while(!this.planificadorProgramas.isEmpty())
+        boolean continuar =true;
+        while( continuar)
         {
             programaAux=this.correrPrograma(programaActual);
-            programaActual=this.planificadorProgramas.getFistProgram();
-            if(programaAux.getTime()<1)
+            if(programaAux.getTime()<=0)
             {
-                System.out.println("programa:"+programaAux.getId()+"termino su ejecucion");
+                System.out.println("programa:"+programaAux.getId()+" termino su ejecucion");
+                progrmasEjecutados++;
+                System.out.println("total programas:"+totalProgrmas);
             }
             else
             {
                 this.planificadorProgramas.agregarPrograma(programaAux);
             }
+            if(progrmasEjecutados>=totalProgrmas && this.planificadorProgramas.isEmpty())
+            {
+                continuar=false;
+            }
+            else
+            {
+                programaActual=this.planificadorProgramas.getFistProgram();
+            }
+
         }
     }
 }
