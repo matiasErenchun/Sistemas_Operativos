@@ -12,23 +12,29 @@ public class PlanificadorMemoria
         this.disco = disco;
     }
 
-    public void cargarProgramaDesdeDisco(Programa programa)
+    public void cargarSegmentoDesdeDisco(int pID, int sID)
     {
-        if((this.memoriaPrincipal.getMemoriaLibre()- programa.getLargo())<0)
+        Segmento segmento= this.disco.getSegmento(pID,sID);
+        segmento.print();
+        int largo= segmento.getEnd() - segmento.getHead();
+        System.out.println("memoria libre:"+this.memoriaPrincipal.getMemoriaLibre()+" largo:"+largo);
+        if((this.memoriaPrincipal.getMemoriaLibre()- largo)<0)//puede que salga algun problema aqui
         {
             this.volcarMemoriaADisco();
+            System.out.println("se volco la memoria ");
+            this.memoriaPrincipal.print();
         }
-        int id =programa.getId();
-        Segmento segmento=this.disco.getSegmentoPID(id);
+        int id =pID;
         int i= segmento.getHead();
         int headM=this.memoriaPrincipal.getFirsFreeblock();
-        int endM= headM+ programa.getLargo()-1;
-        Segmento segemntoMemoria = new Segmento(id,headM,endM);
-        this.memoriaPrincipal.addSegmento(segemntoMemoria);
-        while (i<= segmento.getEnd())
+        int endM= headM+ largo-1;
+        Segmento segemntoMemoria = new Segmento(id,sID,headM,endM);
+        this.memoriaPrincipal.addSegmento(id,segemntoMemoria);
+        while (i< segmento.getEnd())
         {
+            this.memoriaPrincipal.print();
             StringBuilder string = new StringBuilder("");
-            string.append(Integer.toString(programa.getId())+Integer.toString(i - segmento.getHead()));
+            string.append(Integer.toString(pID)+Integer.toString(i - segmento.getHead()));
             this.memoriaPrincipal.setcontenido(this.disco.getIndex(i));
             i++;
         }
@@ -37,46 +43,29 @@ public class PlanificadorMemoria
 
     private void volcarMemoriaADisco()
     {
-        ArrayList<Integer> listaAux= this.memoriaPrincipal.getPids();
-        for (Integer pID:listaAux)
+        ArrayList<Segmento> segmentos= this.memoriaPrincipal.getSegmentos();
+        for (Segmento segmeto: segmentos)
         {
-            Segmento segmentoM=this.memoriaPrincipal.getSegmentoPID(pID);
-            Segmento segmentoD=this.disco.getSegmentoPID(pID);
-            int headM= segmentoM.getHead();
-            int headD= segmentoD.getHead();
-            while (headM<=segmentoM.getEnd())
+            int headM= segmeto.getHead();
+            int end= segmeto.getEnd();
+            Segmento segmentoD=this.disco.getSegmento(segmeto.getpID(),segmeto.getsID());
+            int headD=segmentoD.getHead();
+            while(headM<=end)
             {
-                String contenidoM=this.memoriaPrincipal.getIndex(headM);
-                this.disco.setIndex(headD,contenidoM);
+                String contenido=this.memoriaPrincipal.getIndex(headM);
+                this.disco.setIndex(headD,contenido);
                 headD++;
                 headM++;
             }
         }
-
         this.memoriaPrincipal.borrarSegmentos();
-        this.memoriaPrincipal.borrarTraductor();
+        this.memoriaPrincipal.borrarTablaSegementosMemoria();
         this.memoriaPrincipal.resetParametros();
-        this.memoriaPrincipal.print();
     }
 
     /*
-    en base a un program id entregado verifica si el programa esta  cargado en memoria principal
-    retornando False si no se encuentra en memoria y True si es que si se encuentra en la memoria.
+    En base a un Program ID entregado, se verifica si el programa está cargado en memoria principal,
+    retornando false si no se encuentra, y true si este se encuentra en la memoria principal
      */
-    public boolean estaEnMemoriaPrincipal(int pID)
-    {
-        int answer=this.memoriaPrincipal.ExistePID(pID);
-        System.out.println("answer:"+answer+" pid:"+pID);
-        this.memoriaPrincipal.print();
-        if(answer==-1)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
 
 }

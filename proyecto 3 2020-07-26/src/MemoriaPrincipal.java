@@ -1,20 +1,23 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 public class MemoriaPrincipal
 {
     private String [] memoria;
     private int memoriaLibre;
-    private TraductoDeDirecciones diccioario;
+    private TablaSegmentosEnMemoria tablaSegmentosEnMemoria;
     private int firsFreeBlock;//es
-    private ArrayList<Segmento> segmentos;
+    private HashMap<Integer,ArrayList<Segmento>> segmentos;
 
-    public MemoriaPrincipal(int tamaño, TraductoDeDirecciones diccioario)
+    public MemoriaPrincipal(int tamaño, TablaSegmentosEnMemoria tablaSegmentosEnMemoria)
     {
         this.memoria = new String[tamaño];
         this.memoriaLibre=tamaño;
-        this.diccioario=diccioario;
+        this.tablaSegmentosEnMemoria=tablaSegmentosEnMemoria;
         this.firsFreeBlock =0;
-        this.segmentos=new ArrayList<>();
+        this.segmentos= new HashMap<>();
         for (int i = 0; i < tamaño; i++)
         {
             this.memoria[i]="0";
@@ -43,21 +46,33 @@ public class MemoriaPrincipal
 
     public void setcontenido( String instruccion )
     {
-        //la llave  se crear al concatenar el id del programa con el indice de la instruccion
-        this.memoria[this.firsFreeBlock]=instruccion;//agregamos el contenido en direccion de bloke libre
+        //La key se crea al concadenar el ID del programa con el índice de la instrucción
+        this.memoria[this.firsFreeBlock]=instruccion;//Agregamos el contenido en dirección al Bloque Libre
         this.firsFreeBlock++;
         this.memoriaLibre--;
     }
 
-    public void addSegmento(Segmento segmento)
+    public void addSegmento(int pID, Segmento segmento)
     {
-        this.segmentos.add(segmento);
-        this.diccioario.SetDireccion(segmento.getpID(), segmento.getHead());
+        if(this.segmentos.containsKey(pID))
+        {
+            ArrayList<Segmento> segmentos1 = this.segmentos.get(pID);
+            segmentos1.add(segmento);
+            this.segmentos.put(pID,segmentos1);
+            this.tablaSegmentosEnMemoria.agregarSegmento(pID,segmento);
+        }
+        else
+        {
+            ArrayList<Segmento> segmentos1 = new ArrayList<>();
+            segmentos1.add(segmento);
+            this.segmentos.put(pID,segmentos1);
+            this.tablaSegmentosEnMemoria.agregarSegmento(pID,segmento);
+        }
     }
 
-    public void borrarTraductor()
+    public void borrarTablaSegementosMemoria()
     {
-        this.diccioario.borarr();
+        this.tablaSegmentosEnMemoria.borrar();
     }
 
     public void borrarSegmentos()
@@ -65,68 +80,20 @@ public class MemoriaPrincipal
         this.segmentos.clear();
     }
 
-    public int  buscarpID(int indexM)
-    {
-        int head;
-        int end;
 
-        for (Segmento semento:this.segmentos)
-        {
-            head =semento.getHead();
-            end = semento.getEnd();
-            if( indexM>=head && indexM<=end)
-            {
-                return semento.getpID();
-            }
-        }
-        return -1;
-    }
 
-    public int ExistePID(int pID)
-    {
-        for (Segmento segmento:this.segmentos)
-        {
-            if(segmento.getpID()==pID)
-            {
-                return 1;
-            }
-        }
-        return -1;
-    }
-
-    /*
-    retorna un segmento en base a un program id  entregado, si nos e encuenta retorna un segmento error
-     */
-    public Segmento getSegmentoPID(int pID)
-    {
-        for (Segmento segmento: this.segmentos)
-        {
-            if(segmento.getpID()==pID)
-            {
-                return segmento;
-            }
-
-        }
-        Segmento error = new Segmento(-1,-1,-1);
-        return error;
-    }
-
-    // esta funsion muestra la informacion de la memoria principal
+    //Acá se muestra la información de la Memoria Principal
      public void print()
      {
+         System.out.println(" ");
          System.out.print("{");
          for (int i = 0; i < this.memoria.length ; i++) {
              System.out.print("["+i+":"+this.memoria[i]+"]");
          }
          System.out.println("}");
 
-         for (Segmento segmento:this.segmentos)
-         {
-             segmento.print();
-         }
-
-         System.out.println("memoria libre: "+this.getMemoriaLibre());
-         System.out.println("ultimo bloke libre: "+this.getFirsFreeblock());
+         System.out.println("\n*****INFORMACIÓN*****\nBloques de Memoria Libres: "+this.getMemoriaLibre());
+         System.out.println("Último Bloque Libre: "+this.getFirsFreeblock());
      }
 
      public String getIndex(int index)
@@ -135,18 +102,21 @@ public class MemoriaPrincipal
      }
 
      /*
-     retorna un arreglo con todos los program id correspondientes
+     Retorna un Arreglo con todos los Program ID correspondientes
      a los segmentos cargados en memoria
-      */
-     public ArrayList<Integer> getPids()
+     */
+     public ArrayList<Segmento> getSegmentos()
      {
-         ArrayList<Integer> listaAux= new ArrayList<>();
-         for (Segmento segemento :this.segmentos)
+         ArrayList<Segmento> segmentos=new ArrayList<>();
+         Collection<ArrayList<Segmento>> segmentosAux=this.segmentos.values();
+         for (ArrayList<Segmento> segmentoss: segmentosAux)
          {
-             listaAux.add(segemento.getpID());
+             for (Segmento segg: segmentoss)
+             {
+                 segmentos.add(segg);
+             }
          }
-
-         return listaAux;
+         return segmentos;
      }
 
      public void resetParametros()

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GeneradorProgramas
@@ -6,6 +7,8 @@ public class GeneradorProgramas
     private ColaProgramas  colaProgramas;
     private int programId;
     private int maxLargoPrograma;
+    private Random random;
+    
 
     public GeneradorProgramas(Disco disco, ColaProgramas colaProgramas, int largoMax)
     {
@@ -14,30 +17,31 @@ public class GeneradorProgramas
         this.programId=1;
         this.maxLargoPrograma=largoMax;
     }
-
+    
     /*
-    se le pasa como parametro la cantidad de progrmas que se desea generar, si al generar un programa
-    el tamaño de este supera el espacio libre, el programa no se genera,
-     esto es  ya que lso tamaños son aleatorios y el usuario puede ingresa cualquier numero de programas.
-
-     una vez ggeenrado el programa este se carga al disco y se  agrega a la cola de programas
-     segun corresponda a su prioridad.
-     */
+    Recibe como parámetro la cantidad de programas que se desean simular, si el tamaño de
+    un programa generado supera el espacio libre, el programa no se genera. Esto debido a
+    que los tamaños son ALEATORIOS y el usuario decide la cantidad de programas a generar.
+    
+    Una vez se ha generado un programa, se carga al disco y se agrega a la Cola de Programas
+    dependiendo de su Prioridad.
+    */
     public void generarProgramas(int cantidadProgramas )
     {
-        Random random= new Random(System.currentTimeMillis());
+        int largo;
+        this.random= new Random(System.currentTimeMillis());
         int i=0;
         while (i<cantidadProgramas)
         {
             int prioridad= random.nextInt(11);
-            if(prioridad<=8)//con esto es para hacer que los programas sean en su mayoria programas normales
+            if(prioridad<=8)//Todo programa que tenga prioridad de 8 se transforma en prioridad "normal"
             {
-                prioridad=1;//estos son lso programas normales
+                prioridad=1;//Se establece la prioridad "normal"
             }
-            int largo= random.nextInt(this.maxLargoPrograma)+1;
+            largo= random.nextInt(this.maxLargoPrograma)+1;
             if((this.disco.getEspacioLibre()-largo)<0)
             {
-                System.out.println("programa:"+this.programId+"no se creo, no cupia en el disco");
+                System.out.println("\n*****[AVISO]*****\nNo es posible generar un nuevo programa (Programa: "+this.programId+")\nMOTIVO: No hay espacio suficiente en el Disco");
             }
             else {
 
@@ -48,8 +52,9 @@ public class GeneradorProgramas
             }
             this.programId++;
             i++;
-            random.setSeed(System.currentTimeMillis());//otra semilla asi es mas random
-        }
+            random.setSeed(System.currentTimeMillis());//Se vuelve a generar otra semilla para aumentar la aleatoriedad
+            
 
+        }
     }
 }

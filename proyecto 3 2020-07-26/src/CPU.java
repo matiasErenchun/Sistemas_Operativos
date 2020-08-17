@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class CPU
 {
     private TraductoDeDirecciones diccionario;
@@ -12,25 +14,27 @@ public class CPU
         this.memoriaPrincipal=memoriaPrincipal;
         this.instruccionesMax=instruccionesMax;
     }
-
+    
     /*
-    se ejecuta un programa  el cual  se pasa como parametro
-    la cpu tiene uan cantidad de instrucciones maximaspor turno,
-    de manera que si un programa requiere mas instrucciones tiene que salir de la cpu,
-    volviendo a la cola de programas
-     */
+    Acá se ejecutan los programas, estos son recibidos como parámetros.
+    La CPU tiene una cantidad de instrucciones MÁXIMAS por turno, de esta manera, si
+    el programa requiere más cantidad de instrucciones, tiene que dejar su ejecución
+    para volver a la cola de programas.
+    */
     public Programa correrPrograma(Programa programa)
     {
-        int i=programa.getPc();
+        Random random= new Random(System.currentTimeMillis());
         int instruccionesEjecutadas=0;
-        int head = this.diccionario.getDireccion(programa.getId());
-        while(i < programa.getLargo() && instruccionesEjecutadas<this.instruccionesMax)
+        int instruccionActual;
+        int direccionActual;
+        String valorDireccionActual;
+        while(instruccionesEjecutadas<this.instruccionesMax)
         {
-            String instruccion=this.memoriaPrincipal.getIndex(head+i);
-            System.out.println("ejecuantado la instruccion:"+(i+1)+" del progema:"+programa.getId()+" la instruccion es:"+instruccion+" el total de instrucciones es:"+programa.getLargo());
+            instruccionActual= random.nextInt(programa.getLargo());
+            direccionActual=this.diccionario.getDireccion(programa.getId(),instruccionActual);
+            valorDireccionActual=this.memoriaPrincipal.getIndex(direccionActual);
+            System.out.println("*****AVISO*****\nEjecuantado la Instrucción: "+(instruccionActual)+" | Programa:: "+programa.getId()+" | Contenido de la Instrucción: "+valorDireccionActual+" | El total de Instrucciones es: "+programa.getLargo());
             programa.decrementarTime();
-            programa.incrementarPC();
-            i++;
             instruccionesEjecutadas++;
         }
 
@@ -38,23 +42,23 @@ public class CPU
     }
 
     /*
-    inicia el proceso de ejecucion de cada programa en al cola de programas
-     */
+    Acá se ejecutan los programas que van llegando desde la Cola de Programas
+    */
     public void ejecutar()
     {
         int progrmasEjecutados=0;
         int totalProgrmas=this.planificadorProgramas.totalProgramas();
-        Programa programaActual=this.planificadorProgramas.getFistProgram();//este es el programa que se esta cargando o ejecutando en la cpu
+        Programa programaActual=this.planificadorProgramas.getFistProgram();//Programa actual en ejecución
         Programa programaAux;// este es el programa que esta saliendo de la cpu
         boolean continuar =true;
         while( continuar)
         {
             programaAux=this.correrPrograma(programaActual);
-            if(programaAux.getTime()<=0)//cuando no ya no le quedna ams ejecuciones termina el programa
+            if(programaAux.getTime()<=0)//Si al programa ya no le queda más tiempo de ejecución, este se termina
             {
-                System.out.println("programa:"+programaAux.getId()+" termino su ejecucion");
+                System.out.println("\n*****[AVISO]*****\nPrograma: "+programaAux.getId()+"\nACCIÓN: Ejecución Finalizada\nMOTIVO: Se ha completado el Tiempo de Ejecución");
                 progrmasEjecutados++;
-                System.out.println("total programas:"+totalProgrmas);
+                System.out.println("\n*****[INFORMACIÓN]*****\nNº Total de Programas Ejecutados en CPU: "+totalProgrmas + "\n");
             }
             else
             {

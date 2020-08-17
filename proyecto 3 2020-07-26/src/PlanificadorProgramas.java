@@ -11,16 +11,7 @@ public class PlanificadorProgramas
 
     public Programa getFistProgram()
     {
-        Programa programa=this.colaProgramas.getFirst();// sacamos el primer programa de la cola
-        if(this.planificadorMemoria.estaEnMemoriaPrincipal(programa.getId()))
-        {
-            System.out.println("el programa:"+programa.getId()+" esta cargado en memoria ");
-        }
-        else
-        {
-            this.planificadorMemoria.cargarProgramaDesdeDisco(programa);// carga los datos del programa desde el disco a al memoria principal
-        }
-
+        Programa programa=this.colaProgramas.getFirst();//Se saca el primer programa de la Cola
         return programa;
     }
 

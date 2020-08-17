@@ -1,34 +1,32 @@
-import java.util.HashMap;
-
 //esta clase es la que implementa el hash para redireccionar a la memoria
 
 public class TraductoDeDirecciones
 {
-    private HashMap<Integer,Integer> tablaMemoria;
+    private TablaSegmentosEnMemoria tablaSegmentosEnMemoria;
+    private TablaDeSegmentosViruales tablaDeSegmentosViruales;
+    private PlanificadorMemoria planificadorMemoria;
 
-    public TraductoDeDirecciones()
-    {
-        this.tablaMemoria = new HashMap<>();
+    public TraductoDeDirecciones(TablaSegmentosEnMemoria tablaSegmentosEnMemoria, TablaDeSegmentosViruales tablaDeSegmentosViruales, PlanificadorMemoria planificadorMemoria) {
+        this.tablaSegmentosEnMemoria = tablaSegmentosEnMemoria;
+        this.tablaDeSegmentosViruales = tablaDeSegmentosViruales;
+        this.planificadorMemoria = planificadorMemoria;
     }
 
-    public Integer getDireccion(Integer pID)
+    public Integer getDireccion(int pID, int instruccion)
     {
-        Integer i=this.tablaMemoria.get(pID);
-        return i;
-    }
+        SegmentoVirtual segmentoV=this.tablaDeSegmentosViruales.getSegmentoVirtual(pID,instruccion);
+        boolean existe=tablaSegmentosEnMemoria.existeSegmentoEnMemoria(pID,segmentoV.getsID());
+        System.out.println("existe:"+existe);
+        if(!existe)
+        {
+            this.planificadorMemoria.cargarSegmentoDesdeDisco(pID, segmentoV.getsID());
+            this.tablaSegmentosEnMemoria.mostrarSegmentosEnMemoria();
 
-    public void SetDireccion(Integer pID, Integer indexHeadM)
-    {
-        this.tablaMemoria.putIfAbsent( pID,indexHeadM);//faltan validaciones
-    }
+        }
+        Segmento segmentoM=this.tablaSegmentosEnMemoria.getSegmentoMemoria(pID,segmentoV.getsID());
+        int desplazamiento = instruccion-segmentoV.getIntruccionDeInicio();
+        int direccion =segmentoM.getHead()+desplazamiento;
+        return direccion;
 
-    public void borarr()
-    {
-        this.tablaMemoria.clear();
-    }
-
-    public void print()
-    {
-        System.out.println(this.tablaMemoria.toString());
     }
 }

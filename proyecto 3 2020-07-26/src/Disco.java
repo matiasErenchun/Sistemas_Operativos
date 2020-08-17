@@ -1,18 +1,22 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 public class Disco
 {
     private ArrayList<String>Disco;
-    private ArrayList<Segmento> segmentos;
+    private HashMap<Integer,ArrayList<Segmento>> hSegmentos;
+    private TablaDeSegmentosViruales segmentosViruales;
     private int espacioLibre;
     private int indexFlag;
 
-    public Disco(int espacioLibre)
+    public Disco(int espacioLibre,TablaDeSegmentosViruales tablaDeSegmentosViruales)
     {
+        this.segmentosViruales=tablaDeSegmentosViruales;
         this.Disco = new ArrayList<>();
         this.espacioLibre = espacioLibre;
         this.indexFlag=0;
-        this.segmentos =new ArrayList<>();
+        this.hSegmentos =new HashMap<>();
         for (int j = 0; j < espacioLibre; j++)
         {
             this.Disco.add(j,"0");
@@ -31,74 +35,111 @@ public class Disco
 
 
     /*
-    esta funcion carga un programa en el disco duro creando los segmentos,
-    ademas de copiar las instrucciones( en este caso soloe s id  del programa al que pertenese)
-     */
-    public void cargarPrograma(Programa programa)//cargamos el programa al disco desde el generador
+    
+    Acá se realiza la carga de un programa al Disco Duro creando los segmentos
+    además de copiar sus instrucciones 
+    
+    (Para efectos de simulación el contenido de las instrucciones es el ID del programa)
+    
+    */
+    public void cargarPrograma(Programa programa)//Se realiza la carga al Disco desde el Generador
     {
-        int head = this.indexFlag;
-        int end = this.indexFlag+programa.getLargo()-1;
-        this.espacioLibre-=programa.getLargo();
-        Segmento segmento = new Segmento(programa.getId(),head,end);
-        this.agregarSegmento(segmento);
-
-        int count = this.indexFlag;
-        String contenido=Integer.toString(programa.getId());
-        while (count<=end)
+        System.out.println("largo programa:"+programa.getLargo());
+        Random random =new Random(System.currentTimeMillis());
+        int segmentID=0;
+        int largoTotal=0;
+        int head;
+        int end;
+        int largoSegmento;
+        while(largoTotal< programa.getLargo())
         {
-            this.Disco.set(count,contenido);
-            count++;
+            largoSegmento=random.nextInt(programa.getLargo()-largoTotal)+1;
+            System.out.println("largo:"+largoSegmento);
+            head=this.getIndexFlag();
+            end=head+largoSegmento-1;
+            Segmento nuevoSegmento= new Segmento(programa.getId(),segmentID,head,end);
+            SegmentoVirtual nuevoSegemenVirtual= new SegmentoVirtual(programa.getId(), segmentID,largoTotal,(largoTotal+largoSegmento)-1);
+            for (int i = head; i <=end ; i++)
+            {
+                StringBuilder stringBuilder = new StringBuilder("");
+                stringBuilder.append(Integer.toString(programa.getId()));
+                stringBuilder.append(Integer.toString(segmentID));
+                this.Disco.set(i,stringBuilder.toString());
+            }
+            segmentID++;
+            this.indexFlag=end+1;
+            this.espacioLibre-=largoSegmento;
+            this.agregarSegmento(programa.getId(),nuevoSegmento);
+            this.segmentosViruales.agregarSegmentoVirtual(programa.getId(), nuevoSegemenVirtual);
+            largoTotal+=largoSegmento;
+            random.setSeed(System.currentTimeMillis());
         }
-        this.indexFlag=count;
-        System.out.println(" ");
-        System.out.println("cargando el progrma:"+contenido);
         this.mostrarDisco();
+        this.mostrarSegmentos(programa.getId());
+        this.segmentosViruales.mostrar(programa.getId());
+
+
+
     }
 
 
     /*
-    se agrega uns egmentoo ya creado a lista de segmento
-     */
-    public void agregarSegmento(Segmento segmento)
+    Se agrega un segmento ya creado a la lista de segmentos
+    */
+    public void agregarSegmento(Integer pID,Segmento segmento)
     {
-        this.segmentos.add(segmento);
-    }
-
-    /*
-    busca un segmento segun un int correspodniente al program id
-    si encuentra uan coincidencia retorna el segmento correspondiente,
-    de otra manera retorna un segmento de error (valores -1 en sus campos)
-     */
-    public Segmento getSegmentoPID(int pid)
-    {
-        for (Segmento segmento: this.segmentos)
+        if(this.hSegmentos.containsKey(pID))
         {
-            if(segmento.getpID()==pid)
+            ArrayList<Segmento> segmentos = hSegmentos.get(pID);
+            segmentos.add(segmento);
+            this.hSegmentos.put(pID,segmentos);
+        }
+        else
+        {
+            ArrayList<Segmento> segmentos = new ArrayList<>();
+            segmentos.add(segmento);
+            this.hSegmentos.put(pID,segmentos);
+        }
+    }
+
+    /*
+    Busca un segmento basándose en un int que corresponde al program id,
+    si se encuentra una coincidencia retorna el segmento correspondiente,
+    caso contrario, retorna un segmento de error (Valor -1 en sus campos)
+    */
+    public Segmento getSegmento(int pid, int sID)
+    {
+        ArrayList<Segmento>segmentos = this.hSegmentos.get(pid);
+        for (Segmento segmento: segmentos)
+        {
+            if(segmento.getsID()==sID)
             {
                 return segmento;
             }
 
         }
-        Segmento error = new Segmento(-1,-1,-1);
+        Segmento error = new Segmento(-1,-1,-1,-1);
         return error;
     }
 
     public void mostrarDisco()
     {
-        System.out.print("{");
-        for (int j = 0; j < this.Disco.size(); j++)
-        {
-            System.out.print("["+j+":"+this.Disco.get(j)+"]");
+        System.out.println("disco");
+        for (int i = 0; i < this.Disco.size(); i++) {
+            System.out.print("["+i+":"+this.Disco.get(i)+"]");
         }
-
-        System.out.println("}");
-        for (Segmento segmento:this.segmentos)
-        {
-            segmento.print();
-        }
-
-        System.out.println("Espacio libre: "+this.espacioLibre);
+        System.out.println(" ");
     }
+
+    public void mostrarSegmentos(int pID)
+    {
+        ArrayList<Segmento>secccmentos=this.hSegmentos.get(pID);
+        for (Segmento seg: secccmentos)
+        {
+            seg.print();
+        }
+    }
+
 
     public int getIndexFlag()
     {
@@ -110,5 +151,6 @@ public class Disco
     {
         return this.espacioLibre;
     }
+
 
 }
