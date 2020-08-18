@@ -54,6 +54,6 @@ public class SegmentoVirtual
 
     public void print()
     {
-        System.out.println("{ SVid:"+this.getpID()+" svID:"+this.getsID()+" inicio:"+this.getIntruccionDeInicio()+" fin:"+this.getInstruccionFinal()+" }");
+        System.out.println("{ pID:"+this.getpID()+" svID:"+this.getsID()+" inicio:"+this.getIntruccionDeInicio()+" fin:"+this.getInstruccionFinal()+" }");
     }
 }

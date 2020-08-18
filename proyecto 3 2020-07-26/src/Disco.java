@@ -64,6 +64,7 @@ public class Disco
                 StringBuilder stringBuilder = new StringBuilder("");
                 stringBuilder.append(Integer.toString(programa.getId()));
                 stringBuilder.append(Integer.toString(segmentID));
+                stringBuilder.append(Integer.toString(i-head));
                 this.Disco.set(i,stringBuilder.toString());
             }
             segmentID++;

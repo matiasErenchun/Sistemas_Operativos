@@ -28,10 +28,12 @@ public class CPU
         int instruccionActual;
         int direccionActual;
         String valorDireccionActual;
-        while(instruccionesEjecutadas<this.instruccionesMax)
+        while(instruccionesEjecutadas<this.instruccionesMax && programa.getTime()>0)
         {
             instruccionActual= random.nextInt(programa.getLargo());
             direccionActual=this.diccionario.getDireccion(programa.getId(),instruccionActual);
+            System.out.println("direccion actual:"+direccionActual);
+            this.memoriaPrincipal.print();
             valorDireccionActual=this.memoriaPrincipal.getIndex(direccionActual);
             System.out.println("*****AVISO*****\nEjecuantado la Instrucción: "+(instruccionActual)+" | Programa:: "+programa.getId()+" | Contenido de la Instrucción: "+valorDireccionActual+" | El total de Instrucciones es: "+programa.getLargo());
             programa.decrementarTime();
@@ -54,25 +56,34 @@ public class CPU
         while( continuar)
         {
             programaAux=this.correrPrograma(programaActual);
+            System.out.println("ejecuciones restantes :"+programaAux.getTime());
             if(programaAux.getTime()<=0)//Si al programa ya no le queda más tiempo de ejecución, este se termina
             {
                 System.out.println("\n*****[AVISO]*****\nPrograma: "+programaAux.getId()+"\nACCIÓN: Ejecución Finalizada\nMOTIVO: Se ha completado el Tiempo de Ejecución");
                 progrmasEjecutados++;
                 System.out.println("\n*****[INFORMACIÓN]*****\nNº Total de Programas Ejecutados en CPU: "+totalProgrmas + "\n");
+                if(!this.planificadorProgramas.isEmpty())
+                {
+                    programaActual=this.planificadorProgramas.getFistProgram();
+                }
+                else
+                {
+                    continuar=false;
+                }
             }
             else
             {
-                this.planificadorProgramas.agregarPrograma(programaAux);
+                if(this.planificadorProgramas.isEmpty())
+                {
+                    this.planificadorProgramas.agregarPrograma(programaAux);
+                    programaActual=this.planificadorProgramas.getFistProgram();
+                }
+                else
+                {
+                    programaActual=this.planificadorProgramas.getFistProgram();
+                    this.planificadorProgramas.agregarPrograma(programaAux);
+                }
             }
-            if(progrmasEjecutados>=totalProgrmas && this.planificadorProgramas.isEmpty())
-            {
-                continuar=false;
-            }
-            else
-            {
-                programaActual=this.planificadorProgramas.getFistProgram();
-            }
-
         }
     }
 }

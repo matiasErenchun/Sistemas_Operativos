@@ -16,7 +16,7 @@ public class PlanificadorMemoria
     {
         Segmento segmento= this.disco.getSegmento(pID,sID);
         segmento.print();
-        int largo= segmento.getEnd() - segmento.getHead();
+        int largo= (segmento.getEnd() - segmento.getHead())+1;
         System.out.println("memoria libre:"+this.memoriaPrincipal.getMemoriaLibre()+" largo:"+largo);
         if((this.memoriaPrincipal.getMemoriaLibre()- largo)<0)//puede que salga algun problema aqui
         {
@@ -30,14 +30,15 @@ public class PlanificadorMemoria
         int endM= headM+ largo-1;
         Segmento segemntoMemoria = new Segmento(id,sID,headM,endM);
         this.memoriaPrincipal.addSegmento(id,segemntoMemoria);
-        while (i< segmento.getEnd())
+        while (i<=segmento.getEnd())
         {
-            this.memoriaPrincipal.print();
+            //this.memoriaPrincipal.print();
             StringBuilder string = new StringBuilder("");
             string.append(Integer.toString(pID)+Integer.toString(i - segmento.getHead()));
             this.memoriaPrincipal.setcontenido(this.disco.getIndex(i));
             i++;
         }
+
 
     }
 
